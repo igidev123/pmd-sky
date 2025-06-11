@@ -21,8 +21,8 @@ void ov31_0238328C(void)
         CloseAdvancedTextBox(ov31_0238A2A0.st3->e[0]);
         ov31_0238A2A0.st3->e[0] = -2;
     }
-    if (ov31_0238A2A0.st3->e[1] == -2)
-        return;
-    CloseParentMenu(ov31_0238A2A0.st3->e[1]);
-    ov31_0238A2A0.st3->e[1] = -2;
+    if (ov31_0238A2A0.st3->e[1] != -2) {
+        CloseParentMenu(ov31_0238A2A0.st3->e[1]);
+        ov31_0238A2A0.st3->e[1] = -2;
+    }
 }
