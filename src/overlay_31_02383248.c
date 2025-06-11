@@ -8,6 +8,9 @@ extern u8* StringFromId(u32);
 extern void CloseAdvancedTextBox(s8);
 extern void CloseParentMenu(s8);
 
+extern void MemFree(void*);
+
+
 void ov31_02383248(struct Window* window)
 {
     u8* a;
@@ -25,4 +28,15 @@ void ov31_0238328C(void)
         CloseParentMenu(ov31_0238A2A0.st3->e[1]);
         ov31_0238A2A0.st3->e[1] = -2;
     }
+}
+
+// Safely frees ov31_0238A2A0.st3
+void ov31_023832F0(void)
+{
+    if (ov31_0238A2A0.st3 == NULL) {
+        return;
+    }
+    ov31_0238328C();
+    MemFree(ov31_0238A2A0.st3);
+    ov31_0238A2A0.st3 = NULL;
 }

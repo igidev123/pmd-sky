@@ -7,5 +7,6 @@ u16 extern OVERLAY31_UNKNOWN_STRING_IDS[];
 
 void ov31_02383248(struct Window* window);
 void ov31_0238328C(void);
+void ov31_023832F0(void);
 
 #endif //PMDSKY_OVERLAY_31_02383248_H
