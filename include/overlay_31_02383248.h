@@ -1,0 +1,10 @@
+#ifndef PMDSKY_OVERLAY_31_02383248_H
+#define PMDSKY_OVERLAY_31_02383248_H
+
+#include "overlay_31_02382820.h"
+
+u16 extern OVERLAY31_UNKNOWN_STRING_IDS[];
+
+void ov31_02383248(struct Window* window);
+
+#endif //PMDSKY_OVERLAY_31_02383248_H
