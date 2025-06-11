@@ -1,7 +1,6 @@
 #pragma once
 .public _020AFC4C
 .public _020AFC70
-.public AbilityIsActiveVeneer
 .public AdvanceFrame
 .public ApplyTrapEffect
 .public AreLateGameTrapsEnabled
@@ -18,17 +17,16 @@
 .public GetTile
 .public GetTileSafe
 .public GetTrapInfo
-.public HasHeldItem
 .public InitRender3dElement64
 .public IqSkillIsEnabled
 .public IsFullFloorFixedRoom
+.public ItemIsActive__022EE318
 .public LoadWteFromFileDirectory
 .public LogMessageByIdWithPopupCheckUser
 .public LogMessageByIdWithPopupCheckUserTarget
 .public LogMessageByIdWithPopupCheckUserUnknown
 .public memset
 .public MemZero
-.public ov10_022C445C
 .public ov29_022E2CA0
 .public ov29_022E56A0
 .public ov29_022E58B0
@@ -51,5 +49,6 @@
 .public sub_0201F2A0
 .public sub_02024FC8
 .public SubstitutePlaceholderStringTags
+.public TRAP_BUSTER_ACTIVATION_CHANCE
 .public UpdateShopkeeperModeAfterTrap
 .public UpdateTrapsVisibility

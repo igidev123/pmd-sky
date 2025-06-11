@@ -191,7 +191,7 @@ _0232EAD0:
 _0232EAEC:
 	mov r0, r4
 	mov r1, #0
-	bl ov29_02300DCC
+	bl MonsterCannotAttack
 	cmp r0, #0
 	bne _0232ED9C
 	mov r0, sb
@@ -556,7 +556,7 @@ _0232EFDC:
 	beq _0232F188
 	mov r0, sb
 	mov r1, r4
-	bl ov29_02332FC8
+	bl CanHitWithRegularAttack
 	cmp r0, #0
 	beq _0232F188
 	ldr r0, [sp, #0x40]
@@ -565,7 +565,7 @@ _0232EFDC:
 	mov r0, r4
 	mov r1, #0x21
 	add r2, sp, #0xac
-	bl ov29_0230F654
+	bl GetExclusiveItemWithEffectFromBag
 	cmp r0, #0
 	beq _0232F060
 	mov r0, #0
@@ -614,7 +614,7 @@ _0232F090:
 	bne _0232F188
 	mov r0, r4
 	mov r1, #1
-	bl ov29_0232461C
+	bl IsChargingAnyTwoTurnMove
 	cmp r0, #0
 	bne _0232F188
 	ldr r0, [sp, #0x84]
@@ -625,7 +625,7 @@ _0232F090:
 	bne _0232F188
 	mov r0, sb
 	mov r1, r4
-	bl ov29_02332FC8
+	bl CanHitWithRegularAttack
 	cmp r0, #0
 	beq _0232F188
 	mov r0, r4
@@ -879,7 +879,7 @@ _0232F498:
 	ldr r2, [sb, #0xb4]
 	cmp r0, #2
 	cmpne r0, #0x69
-	ldreq r0, _0232F838 ; =ov29_0237CA69
+	ldreq r0, _0232F838 ; =ROLLOUT_ICE_BALL_MISSED
 	moveq r1, #1
 	streqb r1, [r0]
 	ldrh r1, [r8, #4]
@@ -914,7 +914,7 @@ _0232F4F4:
 _0232F528:
 	mov r2, #1
 	mov r3, #0
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #0
 	bne _0232F550
 	mov r0, sb
@@ -1066,7 +1066,7 @@ _0232F70C:
 	mov r1, r4
 	mov r2, #1
 	mov r3, #0
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #1
 	bne _0232F87C
 	ldrh r1, [r8, #4]
@@ -1143,7 +1143,7 @@ _0232F828: .word 0x00000131
 _0232F82C: .word 0x00000EBA + EXECUTE_MOVE_EFFECT_DATA_OFFSET
 _0232F830: .word 0x000001F6
 _0232F834: .word 0x00000232
-_0232F838: .word ov29_0237CA69
+_0232F838: .word ROLLOUT_ICE_BALL_MISSED
 _0232F83C: .word 0x00001307
 _0232F840: .word 0x00001306
 _0232F844: .word 0x00000EBC + EXECUTE_MOVE_EFFECT_DATA_OFFSET
@@ -5125,8 +5125,8 @@ _02332FC0:
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 	arm_func_end ov29_02332F18
 
-	arm_func_start ov29_02332FC8
-ov29_02332FC8: ; 0x02332FC8
+	arm_func_start CanHitWithRegularAttack
+CanHitWithRegularAttack: ; 0x02332FC8
 	stmdb sp!, {r3, r4, r5, lr}
 	mov r5, r0
 	mov r4, r1
@@ -5160,7 +5160,7 @@ _02333018:
 	moveq r0, #0
 	and r0, r0, #0xff
 	ldmia sp!, {r3, r4, r5, pc}
-	arm_func_end ov29_02332FC8
+	arm_func_end CanHitWithRegularAttack
 
 	arm_func_start ov29_02333044
 ov29_02333044: ; 0x02333044

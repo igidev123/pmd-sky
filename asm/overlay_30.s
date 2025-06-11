@@ -3787,7 +3787,7 @@ ov30_023859DC: ; 0x023859DC
 	strb r1, [r6, #0xb1]
 	strb r1, [r6, #0xb3]
 	str r0, [r6, #0x1c]
-	bl ov29_022E2978
+	bl PopulateActiveMonsterPtrs
 	ldr r1, [sp, #8]
 	ldr r0, [r6, #0xb4]
 #ifdef JAPAN
@@ -3913,7 +3913,7 @@ ov30_02385B10: ; 0x02385B10
 	mov r0, r0, lsr #0x10
 	mov r1, r1, lsr #0x10
 	bl ov29_022E1EC4
-	bl ov29_022E2978
+	bl PopulateActiveMonsterPtrs
 	and r0, r5, #0xff
 	strb r5, [r6, #0xaa]
 	bl ov29_022DE9F8
@@ -4332,6 +4332,7 @@ _0238607C: .word ov30_02385CA4
 	arm_func_end ov30_02386074
 	; 0x02386080
 
+	.rodata
 	.global OVERLAY30_JP_STRING_1
 OVERLAY30_JP_STRING_1:
 	.byte 0x82, 0xDD, 0x82, 0xB3, 0x82, 0xAB, 0x97, 0x6C, 0x00, 0x00, 0x00, 0x00

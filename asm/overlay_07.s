@@ -5536,7 +5536,7 @@ _02340FFC:
 	bne _023410A0
 	add r0, r4, #0x200
 	ldrsb r0, [r0, #0xb8]
-	bl sub_0202D5E4
+	bl GetOptionsMenuResult
 	cmp r0, #0
 	beq _02341098
 	ldr r0, [r4, #0x2bc]
@@ -6307,6 +6307,7 @@ _023418B8: .word ov07_02341B78
 	; 0x023418BC
 #endif
 
+	.rodata
 	.global ov07_023418BC
 ov07_023418BC:
 #if defined(EUROPE)

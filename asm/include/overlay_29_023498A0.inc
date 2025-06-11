@@ -6,14 +6,9 @@
 .public CanSeeTarget
 .public ChangeDungeonMusic
 .public CloseAlertBox
-.public CloseDialogueBox
-.public CloseParentMenu
-.public ClosePortraitBox
 .public CreateAlertBox
-.public CreateDialogueBox
-.public CreateParentMenuFromStringIds
-.public CreatePortraitBox
 .public Debug_Print0
+.public DisplayMessageInternal
 .public DUNGEON_FADES_PTR
 .public DUNGEON_PTR
 .public DungeonAlloc
@@ -41,12 +36,13 @@
 .public GetMonsterPreEvolution
 .public GetName
 .public GetPerformanceFlagWithChecks
+.public GetPlayerGender
+.public GetRandomExplorerMazeMonster
 .public GetRandomSpawnMonsterID
 .public GetSecondFormIfValid
 .public GetSpecialTargetItem
 .public GetTargetMonsterNotFoundFlag
 .public HandleFaint
-.public HidePortraitBox
 .public InitPortraitParams
 .public InitPreprocessorArgs
 .public InitRender3dElement64
@@ -58,11 +54,11 @@
 .public IsDestinationFloor
 .public IsDestinationFloorWithFleeingOutlaw
 .public IsDestinationFloorWithHiddenOutlaw
-.public IsDialogueBoxActive
 .public IsExperienceLocked
 .public IsFullFloorFixedRoom
 .public IsFutureDungeon
 .public IsJirachiChallengeFloor
+.public IsMonster__0234D460
 .public IsSecretFloor
 .public ItemZInit
 .public LoadOverlay
@@ -96,7 +92,6 @@
 .public ov29_022DEBB0
 .public ov29_022E09E8
 .public ov29_022E0A64
-.public ov29_022E0B44
 .public ov29_022E0B60
 .public ov29_022E0CFC
 .public ov29_022E0E8C
@@ -109,7 +104,6 @@
 .public ov29_022E9F9C
 .public ov29_022E9FC0
 .public ov29_022EA008
-.public ov29_022EA370
 .public ov29_022EA428
 .public ov29_022EAC8C
 .public ov29_022EACBC
@@ -118,8 +112,6 @@
 .public ov29_022EAF34
 .public ov29_022EAFB0
 .public ov29_022F2FE4
-.public ov29_022F42D8
-.public ov29_022F99EC
 .public ov29_022FA3D4
 .public ov29_022FBA54
 .public ov29_022FBBEC
@@ -129,7 +121,6 @@
 .public ov29_0231AF24
 .public ov29_02337EE8
 .public ov29_0233804C
-.public ov29_02339148
 .public ov29_0233992C
 .public ov29_0233A248
 .public ov29_02344B44
@@ -138,6 +129,12 @@
 .public ov29_02348A18
 .public ov29_023491B8
 .public ov29_023496B0
+.public ov29_0234D558
+.public ov29_0234D5D0
+.public ov29_0234D630
+.public ov29_0234D70C
+.public ov29_0234D838
+.public ov29_0234D8A0
 .public ov29_02353214
 .public ov29_02353238
 .public ov29_02353240
@@ -168,7 +165,6 @@
 .public ov29_02353310
 .public ov29_02353368
 .public ov29_02353380
-.public ov29_02353398
 .public ov29_0235352C
 .public ov29_02353563
 .public ov29_023537C8
@@ -178,7 +174,6 @@
 .public ov29_023537E8
 .public ov29_0237C694
 .public ov29_0237D000
-.public ov29_02382800
 .public ov30_02382820
 .public ov30_02382874
 .public ov30_0238298C
@@ -199,8 +194,6 @@
 .public SetPortraitLayout
 .public ShouldDisplayEntityWrapper
 .public ShouldMonsterHeadToStairs
-.public ShowPortraitInPortraitBox
-.public ShowStringInDialogueBox
 .public StringFromId
 .public strlen
 .public strncmp
@@ -212,7 +205,6 @@
 .public sub_02003990
 .public sub_020039E4
 .public sub_02003A40
-.public sub_02006B70
 .public sub_02006EC4
 .public sub_02008ED0
 .public sub_02008F3C
@@ -247,17 +239,12 @@
 .public sub_02025784
 .public sub_02027148
 .public sub_0202715C
-.public sub_020282F4
 .public sub_0202836C
 .public sub_02028848
 .public sub_02028A64
 .public sub_02028E2C
 .public sub_02028E40
 .public sub_02028E88
-.public sub_0202AB94
-.public sub_0202ABB0
-.public sub_0202F334
-.public sub_0202F474
 .public sub_0203010C
 .public sub_02030214
 .public sub_02034710
@@ -279,3 +266,4 @@
 .public SubstitutePlaceholderStringTags
 .public UnloadOverlay
 .public WriteQuicksaveData
+.public YesNoMenu

@@ -49,12 +49,12 @@ _022FEF54:
 _022FEF64:
 	mov r0, r6
 	mov r1, #0
-	bl ov29_02300DCC
+	bl MonsterCannotAttack
 	cmp r0, #0
 	beq _022FEF94
 	mov r0, r6
 	mov r1, #1
-	bl ov29_0232461C
+	bl IsChargingAnyTwoTurnMove
 	cmp r0, #0
 	beq _022FEF94
 	mov r0, r6
@@ -358,21 +358,21 @@ _022FF3D4:
 	ldrb r2, [r5, #0x4c]
 	add r0, r6, #4
 	strb r2, [r1]
-	bl ov29_02338708
+	bl PositionIsOnHiddenStairs
 	cmp r0, #0
 	beq _022FF5E0
-	bl ov29_02338850
+	bl GetHiddenStairsField
 	cmp r0, #1
 	bne _022FF41C
 	mov r0, #1
-	bl ov29_02338898
+	bl SetHiddenFloorField
 	b _022FF5E0
 _022FF41C:
-	bl ov29_02338850
+	bl GetHiddenStairsField
 	cmp r0, #2
 	bne _022FF5E0
 	mov r0, #2
-	bl ov29_02338898
+	bl SetHiddenFloorField
 	b _022FF5E0
 _022FF434:
 	mov r0, r6
@@ -439,7 +439,7 @@ _022FF4E8:
 	b _022FF5E0
 _022FF4F4:
 	mov r0, r5
-	bl ov29_02302368
+	bl MonsterCanThrowItems
 	cmp r0, #0
 	beq _022FF518
 	mov r0, r6
@@ -684,12 +684,12 @@ _022FE528:
 _022FE538:
 	mov r0, sb
 	mov r1, #0
-	bl ov29_02300DCC
+	bl MonsterCannotAttack
 	cmp r0, #0
 	beq _022FE568
 	mov r0, sb
 	mov r1, #1
-	bl ov29_0232461C
+	bl IsChargingAnyTwoTurnMove
 	cmp r0, #0
 	beq _022FE568
 	mov r0, sb
@@ -883,7 +883,7 @@ _022FE818:
 	ldrh r3, [r6]
 	ldr r2, _022FED88 ; =DIRECTIONS_XY
 	mov r8, r1, lsl #2
-	ldr r0, _022FED8C ; =ov29_0235171E
+	ldr r0, _022FED8C ; =DIRECTIONS_XY + 2
 	ldrsh ip, [sb, #4]
 	ldrsh r7, [r2, r8]
 	ldrsh r5, [sb, #6]
@@ -995,21 +995,21 @@ _022FE9A8:
 	ldrb r2, [r6, #0x4c]
 	add r0, sb, #4
 	strb r2, [r1]
-	bl ov29_02338708
+	bl PositionIsOnHiddenStairs
 	cmp r0, #0
 	beq _022FEBB4
-	bl ov29_02338850
+	bl GetHiddenStairsField
 	cmp r0, #1
 	bne _022FE9F0
 	mov r0, #1
-	bl ov29_02338898
+	bl SetHiddenFloorField
 	b _022FEBB4
 _022FE9F0:
-	bl ov29_02338850
+	bl GetHiddenStairsField
 	cmp r0, #2
 	bne _022FEBB4
 	mov r0, #2
-	bl ov29_02338898
+	bl SetHiddenFloorField
 	b _022FEBB4
 _022FEA08:
 	mov r0, sb
@@ -1096,7 +1096,7 @@ _022FEABC:
 	b _022FEBB4
 _022FEAC8:
 	mov r0, r6
-	bl ov29_02302368
+	bl MonsterCanThrowItems
 	cmp r0, #0
 	beq _022FEAEC
 	mov r0, sb
@@ -1306,7 +1306,7 @@ _022FED7C: .word ov29_0237C9C0
 _022FED80: .word ov29_0237CA6C
 _022FED84: .word ov29_0237CA68
 _022FED88: .word DIRECTIONS_XY
-_022FED8C: .word ov29_0235171E
+_022FED8C: .word DIRECTIONS_XY + 2
 #ifdef JAPAN
 _0230017C: .word 0x00000163
 _022FED90: .word 0x00000B31

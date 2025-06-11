@@ -352,7 +352,7 @@ _0232A7B4:
 	bl LogMessageByIdWithPopupCheckUserTarget
 	ldrb r1, [r4, #0x4c]
 	ldr r0, _0232A82C ; =DIRECTIONS_XY
-	ldr r5, _0232A830 ; =ov29_0235171E
+	ldr r5, _0232A830 ; =DIRECTIONS_XY + 2
 	mov r1, r1, lsl #2
 	ldrsh r1, [r0, r1]
 	add r2, sp, #4
@@ -383,7 +383,7 @@ _0232A824: .word 0x00000EE8
 _0232A828: .word 0x00000EE7
 #endif
 _0232A82C: .word DIRECTIONS_XY
-_0232A830: .word ov29_0235171E
+_0232A830: .word DIRECTIONS_XY + 2
 	arm_func_end DoMoveKnockOff
 
 	arm_func_start ov29_0232A834
@@ -418,7 +418,7 @@ ov29_0232A834: ; 0x0232A834
 	add r3, r3, #4
 	mov r1, r3, lsl #8
 	mov r2, r2, lsl #8
-	bl ov29_022E1A84
+	bl SetEntityPixelPosXY
 	mov r0, #0
 	add r1, sp, #8
 	mov r2, r0
@@ -528,7 +528,7 @@ _0232AA28:
 	mov r0, sb
 	mov r1, r5
 	mov r2, r4
-	bl ov29_022E1A90
+	bl IncrementEntityPixelPosXY
 	mov r0, fp
 	bl AdvanceFrame
 	add r6, r6, #1
@@ -627,7 +627,7 @@ _0232ABA0:
 	mov r0, sb
 	mov r1, r5
 	mov r2, r6
-	bl ov29_022E1A90
+	bl IncrementEntityPixelPosXY
 	mov r0, r4
 	bl AdvanceFrame
 	add r7, r7, #1
@@ -1030,7 +1030,7 @@ _0232B06C:
 	mov r0, sl
 	mov r1, sb
 	mov r3, r2
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #0
 	bne _0232B0E4
 	ldr r0, [sb, #0xb4]
@@ -1396,7 +1396,7 @@ DoMoveCamouflage: ; 0x0232B518
 	stmdb sp!, {r3, r4, r5, r6, r7, lr}
 	mov r5, r0
 	mov r4, r1
-	bl sub_02025888
+	bl AllocateTemp1024ByteBufferFromPool
 	ldr r0, _0232B5B8 ; =DUNGEON_PTR
 	mov r2, #0xc
 	ldr r0, [r0]
@@ -1564,7 +1564,7 @@ DoMoveSpikes: ; 0x0232B6C8
 	cmp r0, #0
 	movne r5, #2
 	moveq r5, #1
-	bl ov29_022ED868
+	bl AreLateGameTrapsEnabledWrapper
 	cmp r0, #0
 	beq _0232B718
 	mov r2, r5
@@ -1853,7 +1853,7 @@ DoMoveAttract: ; 0x0232B9D0
 	ldrsh r0, [r0, #2]
 	ldrsh r1, [r1, #2]
 	mov r4, #0
-	bl sub_02054EC8
+	bl GendersNotEqualNotGenderless
 	cmp r0, #0
 	beq _0232BA14
 	mov r4, #1
@@ -2078,7 +2078,7 @@ DoMoveLeechSeed: ; 0x0232BC34
 DoMoveMetronome: ; 0x0232BC64
 	stmdb sp!, {r3, r4, r5, r6, r7, lr}
 	sub sp, sp, #8
-	ldr r2, _0232BCB8 ; =ov29_0237CA88
+	ldr r2, _0232BCB8 ; =METRONOME_NEXT_INDEX
 	mov r5, r0
 	ldr r6, [r2]
 	ldr r0, _0232BCBC ; =METRONOME_TABLE
@@ -2098,7 +2098,7 @@ DoMoveMetronome: ; 0x0232BC64
 	add sp, sp, #8
 	ldmia sp!, {r3, r4, r5, r6, r7, pc}
 	.align 2, 0
-_0232BCB8: .word ov29_0237CA88
+_0232BCB8: .word METRONOME_NEXT_INDEX
 _0232BCBC: .word METRONOME_TABLE
 _0232BCC0: .word ov10_022C5DE0
 	arm_func_end DoMoveMetronome

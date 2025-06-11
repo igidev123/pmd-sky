@@ -1,6 +1,7 @@
 #pragma once
 .public _s32_div_f
 .public AbilityIsActiveVeneer
+.public AreLateGameTrapsEnabledWrapper
 .public ATK_STAT_IDX
 .public BAG_ITEMS_PTR_MIRROR
 .public BoostDefensiveStat
@@ -13,6 +14,7 @@
 .public CountMovesOutOfPp
 .public DealDamage
 .public DealDamageWithTypeAndPowerBoost
+.public DetermineAllMonsterShadow
 .public DetermineTileWalkableNeighbors
 .public DIRECTIONS_XY
 .public DUNGEON_PTR
@@ -41,6 +43,7 @@
 .public GetTileAtEntity
 .public GetTileSafe
 .public GetTrapInfo
+.public GetTreatmentBetweenMonsters
 .public GetVisibilityRange
 .public HandleFaint
 .public HasDropeyeStatus
@@ -70,13 +73,9 @@
 .public ov29_022E6784
 .public ov29_022E8104
 .public ov29_022E81F8
-.public ov29_022ED868
-.public ov29_022EDE7C
 .public ov29_022FBDE0
 .public ov29_022FBDF0
 .public ov29_022FD7A0
-.public ov29_0230175C
-.public ov29_02304B64
 .public ov29_0230D874
 .public ov29_0230D8E8
 .public ov29_0230D95C
@@ -94,7 +93,6 @@
 .public ov29_0234B084
 .public ov29_0234B0B4
 .public ov29_0234BA54
-.public ov29_0235171E
 .public ov29_02352B38
 .public ov29_02352B3C
 .public PrepareTrapperTrap
@@ -140,6 +138,7 @@
 .public TryInflictSleeplessStatus
 .public TryInflictSleepStatus
 .public TryPounce
+.public TryRemoveTrap
 .public TrySpawnTrap
 .public TrySwitchPlace
 .public TryWarp

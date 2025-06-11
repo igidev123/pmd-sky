@@ -14,6 +14,7 @@
 .public AnyDungeonRequestsDone
 .public ApplyGummiBoostsToGroundMonster
 .public ApplyGummiBoostsToTeamMember
+.public ApplyLevelUpBoostsToGroundMonster
 .public BAG_ITEMS_PTR_MIRROR
 .public CheckInventoryMenuField0x1A0
 .public CheckMissionRestrictions
@@ -62,6 +63,7 @@
 .public Debug_Print
 .public Debug_Print0
 .public DecompressAtNormalVeneer
+.public DelayWteFree
 .public DeleteWanTableEntryVeneer
 .public DeleteWindow
 .public DrawTeamStats
@@ -319,6 +321,7 @@
 .public PopInventoryMenuField0x1A3
 .public PreprocessString
 .public PreprocessStringFromId
+.public PrintBadgeMark
 .public PrintIqSkillsMenu
 .public RandInt
 .public RandomizeDemoActors
@@ -340,6 +343,7 @@
 .public SetAdventureLogCompleted
 .public SetAnimationForAnimationControl
 .public SetAreaNameBoxState3
+.public SetBaseStatsMovesGroundMonster
 .public SetCollectionMenuField0x1A4
 .public SetCollectionMenuField0x1C8
 .public SetDungeonConquest
@@ -356,6 +360,7 @@
 .public SetSpriteIdForAnimationControl
 .public SetTeamSetupHeroAndPartnerOnly
 .public SetTeamSetupHeroOnly
+.public SetupAndShowKeyboard
 .public ShowDialogueBox
 .public ShowKeyboard
 .public ShowPortraitInPortraitBox
@@ -515,7 +520,6 @@
 .public sub_0201DF38
 .public sub_0201E020
 .public sub_0201E12C
-.public sub_0201E13C
 .public sub_0201E7D8
 .public sub_0201F2A0
 .public sub_0201F2E4
@@ -540,7 +544,6 @@
 .public sub_02028E40
 .public sub_02028E88
 .public sub_0202A03C
-.public sub_0202A434
 .public sub_0202AB80
 .public sub_0202ABB0
 .public sub_0202B030
@@ -577,7 +580,6 @@
 .public sub_02035098
 .public sub_0203559C
 .public sub_02035CE4
-.public sub_020367B4
 .public sub_02037468
 .public sub_0203909C
 .public sub_02039218
@@ -693,11 +695,9 @@
 .public sub_0204F488
 .public sub_0204F9CC
 .public sub_02052E2C
-.public sub_02052EFC
 .public sub_02053A0C
 .public sub_02053CA0
 .public sub_02053D1C
-.public sub_020544C8
 .public sub_020546E8
 .public sub_02054F44
 .public sub_02055410

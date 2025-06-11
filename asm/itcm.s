@@ -3,8 +3,8 @@
 
 	.section .itcm,4,1,4
 
-	arm_func_start sub_01FF8000
-sub_01FF8000: ; 0x01FF8000
+	arm_func_start CopyAndInterleave
+CopyAndInterleave: ; 0x01FF8000
 	stmdb sp!, {r0, r1, r2, r3, r4, r5, r6, r7, lr}
 	and r3, r3, #0xf
 	mov r6, #0
@@ -55,10 +55,10 @@ _01FF8090:
 	blt _01FF8014
 _01FF80AC:
 	ldmia sp!, {r0, r1, r2, r3, r4, r5, r6, r7, pc}
-	arm_func_end sub_01FF8000
+	arm_func_end CopyAndInterleave
 
-	arm_func_start sub_01FF80B0
-sub_01FF80B0: ; 0x01FF80B0
+	arm_func_start CopyAndInterleave0
+CopyAndInterleave0: ; 0x01FF80B0
 	stmdb sp!, {r0, r1, r2, r3, r4, r5, r6, r7, lr}
 	and r3, r3, #0xf
 	mov r6, #0
@@ -89,15 +89,15 @@ _01FF80C4:
 	blt _01FF80C4
 _01FF811C:
 	ldmia sp!, {r0, r1, r2, r3, r4, r5, r6, r7, pc}
-	arm_func_end sub_01FF80B0
-_01FF8120:
-	.word sub_01FF8224
-	.word sub_01FF849C
-	.word sub_01FF8728
-	.word sub_01FF8C28
+	arm_func_end CopyAndInterleave0
+RENDER_3D_FUNCTIONS:
+	.word Render3dRectangle
+	.word Render3dQuadrilateral
+	.word Render3dTiling
+	.word Render3dTexture
 
-	arm_func_start sub_01FF8130
-sub_01FF8130: ; 0x01FF8130
+	arm_func_start Render3dSetTextureParams
+Render3dSetTextureParams: ; 0x01FF8130
 	stmdb sp!, {r4, r5, r6, lr}
 	sub sp, sp, #0x10
 	ldr r2, _01FF81B8 ; =RENDER_3D
@@ -139,10 +139,10 @@ _01FF81BC: .word _02099734
 _01FF81C0: .word _02099744
 _01FF81C4: .word _02099764
 _01FF81C8: .word _02099784
-	arm_func_end sub_01FF8130
+	arm_func_end Render3dSetTextureParams
 
-	arm_func_start sub_01FF81CC
-sub_01FF81CC: ; 0x01FF81CC
+	arm_func_start Render3dSetPaletteBase
+Render3dSetPaletteBase: ; 0x01FF81CC
 	ldr r2, _01FF8218 ; =RENDER_3D
 	ldr r2, [r2, #4]
 	cmp r2, r1
@@ -166,10 +166,10 @@ sub_01FF81CC: ; 0x01FF81CC
 _01FF8218: .word RENDER_3D
 _01FF821C: .word _02099744
 _01FF8220: .word 0x040004AC
-	arm_func_end sub_01FF81CC
+	arm_func_end Render3dSetPaletteBase
 
-	arm_func_start sub_01FF8224
-sub_01FF8224: ; 0x01FF8224
+	arm_func_start Render3dRectangle
+Render3dRectangle: ; 0x01FF8224
 	stmdb sp!, {r4, r5, r6, lr}
 	sub sp, sp, #0x40
 	mov r4, r0
@@ -209,7 +209,7 @@ sub_01FF8224: ; 0x01FF8224
 	str r0, [sp, #0x3c]
 	ldrb r0, [r4, #0x22]
 	ldrb r1, [r4, #0x23]
-	bl sub_01FF8480
+	bl GeomSetPolygonAttributes
 	mov r0, #0
 	str r0, [sp]
 	str r0, [sp, #4]
@@ -323,10 +323,10 @@ _01FF8470: .word 0x04000444
 _01FF8474: .word 0x0400046C
 _01FF8478: .word 0x04000500
 _01FF847C: .word 0x0400048C
-	arm_func_end sub_01FF8224
+	arm_func_end Render3dRectangle
 
-	arm_func_start sub_01FF8480
-sub_01FF8480: ; 0x01FF8480
+	arm_func_start GeomSetPolygonAttributes
+GeomSetPolygonAttributes: ; 0x01FF8480
 	mov r0, r0, lsl #0x18
 	orr r2, r0, #0xc0
 	ldr r0, _01FF8498 ; =0x040004A4
@@ -335,10 +335,10 @@ sub_01FF8480: ; 0x01FF8480
 	bx lr
 	.align 2, 0
 _01FF8498: .word 0x040004A4
-	arm_func_end sub_01FF8480
+	arm_func_end GeomSetPolygonAttributes
 
-	arm_func_start sub_01FF849C
-sub_01FF849C: ; 0x01FF849C
+	arm_func_start Render3dQuadrilateral
+Render3dQuadrilateral: ; 0x01FF849C
 	stmdb sp!, {r4, lr}
 	sub sp, sp, #0x48
 	mov r4, r0
@@ -372,7 +372,7 @@ sub_01FF849C: ; 0x01FF849C
 	str r1, [sp, #0x44]
 	ldrb r1, [r4, #0x23]
 	str ip, [sp, #0x14]
-	bl sub_01FF8480
+	bl GeomSetPolygonAttributes
 	mov r0, #0
 	str r0, [sp]
 	str r0, [sp, #4]
@@ -504,10 +504,10 @@ _01FF8718: .word 0x04000444
 _01FF871C: .word 0x0400046C
 _01FF8720: .word 0x04000500
 _01FF8724: .word 0x0400048C
-	arm_func_end sub_01FF849C
+	arm_func_end Render3dQuadrilateral
 
-	arm_func_start sub_01FF8728
-sub_01FF8728: ; 0x01FF8728
+	arm_func_start Render3dTiling
+Render3dTiling: ; 0x01FF8728
 	stmdb sp!, {r4, r5, r6, r7, r8, sb, sl, fp, lr}
 	sub sp, sp, #0x4c
 	mov sl, r0
@@ -521,10 +521,10 @@ sub_01FF8728: ; 0x01FF8728
 	add r0, sl, #0x14
 	str r3, [sp, #0x14]
 	str r2, [sp, #0x18]
-	bl sub_01FF8130
+	bl Render3dSetTextureParams
 	ldr r1, [sl, #8]
 	add r0, sl, #0x14
-	bl sub_01FF81CC
+	bl Render3dSetPaletteBase
 	ldrsh r7, [sl, #0xc]
 	ldrsh r0, [sl, #0x10]
 	ldrsh r6, [sl, #0xe]
@@ -580,7 +580,7 @@ sub_01FF8728: ; 0x01FF8728
 	str r0, [sp, #0x48]
 	ldrb r0, [sl, #0x30]
 	ldrb r1, [sl, #0x31]
-	bl sub_01FF8480
+	bl GeomSetPolygonAttributes
 	ldr r1, _01FF89F8 ; =0x04000444
 	mov r2, #0
 	add r0, sp, #0x1c
@@ -696,10 +696,10 @@ _01FF8A00: .word 0x04000500
 _01FF8A04: .word 0x04000488
 _01FF8A08: .word 0x04000480
 _01FF8A0C: .word 0x04000504
-	arm_func_end sub_01FF8728
+	arm_func_end Render3dTiling
 
-	arm_func_start sub_01FF8A10
-sub_01FF8A10: ; 0x01FF8A10
+	arm_func_start Render3dTextureInternal
+Render3dTextureInternal: ; 0x01FF8A10
 	stmdb sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, lr}
 	sub sp, sp, #0x30
 	mov r8, r0
@@ -746,7 +746,7 @@ sub_01FF8A10: ; 0x01FF8A10
 	str r0, [sp, #0x2c]
 	ldrb r0, [r8, #0x26]
 	ldrb r1, [r8, #0x27]
-	bl sub_01FF8480
+	bl GeomSetPolygonAttributes
 	ldr r1, _01FF8C20 ; =0x04000444
 	mov r2, #0
 	add r0, sp, #0
@@ -835,10 +835,10 @@ sub_01FF8A10: ; 0x01FF8A10
 _01FF8C1C: .word TRIG_TABLE
 _01FF8C20: .word 0x04000444
 _01FF8C24: .word 0x0400046C
-	arm_func_end sub_01FF8A10
+	arm_func_end Render3dTextureInternal
 
-	arm_func_start sub_01FF8C28
-sub_01FF8C28: ; 0x01FF8C28
+	arm_func_start Render3dTexture
+Render3dTexture: ; 0x01FF8C28
 	stmdb sp!, {r4, lr}
 	mov r4, r0
 	ldrb r0, [r4, #0x27]
@@ -846,27 +846,27 @@ sub_01FF8C28: ; 0x01FF8C28
 	ldmeqia sp!, {r4, pc}
 	ldr r1, [r4, #4]
 	add r0, r4, #0x14
-	bl sub_01FF8130
+	bl Render3dSetTextureParams
 	ldr r1, [r4, #8]
 	add r0, r4, #0x14
-	bl sub_01FF81CC
+	bl Render3dSetPaletteBase
 	mov r0, r4
-	bl sub_01FF8A10
+	bl Render3dTextureInternal
 	ldmia sp!, {r4, pc}
-	arm_func_end sub_01FF8C28
+	arm_func_end Render3dTexture
 
-	arm_func_start sub_01FF8C60
-sub_01FF8C60: ; 0x01FF8C60
+	arm_func_start Render3dTextureNoSetup
+Render3dTextureNoSetup: ; 0x01FF8C60
 	stmdb sp!, {r3, lr}
 	ldrb r1, [r0, #0x27]
 	cmp r1, #0
 	ldmeqia sp!, {r3, pc}
-	bl sub_01FF8A10
+	bl Render3dTextureInternal
 	ldmia sp!, {r3, pc}
-	arm_func_end sub_01FF8C60
+	arm_func_end Render3dTextureNoSetup
 
-	arm_func_start AllocateRender3dElement
-AllocateRender3dElement: ; 0x01FF8C78
+	arm_func_start NewRender3dElement
+NewRender3dElement: ; 0x01FF8C78
 	ldr r0, _01FF8CA8 ; =RENDER_3D
 	ldrsh r2, [r0]
 	ldrsh r1, [r0, #2]
@@ -881,13 +881,13 @@ AllocateRender3dElement: ; 0x01FF8C78
 	bx lr
 	.align 2, 0
 _01FF8CA8: .word RENDER_3D
-	arm_func_end AllocateRender3dElement
+	arm_func_end NewRender3dElement
 
-	arm_func_start sub_01FF8CAC
-sub_01FF8CAC: ; 0x01FF8CAC
+	arm_func_start EnqueueRender3dTexture
+EnqueueRender3dTexture: ; 0x01FF8CAC
 	stmdb sp!, {r3, r4, r5, lr}
 	mov r5, r0
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	ldmeqia sp!, {r3, r4, r5, pc}
 	mov r0, r5
@@ -897,13 +897,13 @@ sub_01FF8CAC: ; 0x01FF8CAC
 	mov r0, #3
 	strh r0, [r4]
 	ldmia sp!, {r3, r4, r5, pc}
-	arm_func_end sub_01FF8CAC
+	arm_func_end EnqueueRender3dTexture
 
-	arm_func_start sub_01FF8CDC
-sub_01FF8CDC: ; 0x01FF8CDC
+	arm_func_start EnqueueRender3dTiling
+EnqueueRender3dTiling: ; 0x01FF8CDC
 	stmdb sp!, {r3, r4, r5, lr}
 	mov r5, r0
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	ldmeqia sp!, {r3, r4, r5, pc}
 	mov r0, r5
@@ -913,12 +913,12 @@ sub_01FF8CDC: ; 0x01FF8CDC
 	mov r0, #2
 	strh r0, [r4]
 	ldmia sp!, {r3, r4, r5, pc}
-	arm_func_end sub_01FF8CDC
+	arm_func_end EnqueueRender3dTiling
 
-	arm_func_start sub_01FF8D0C
-sub_01FF8D0C: ; 0x01FF8D0C
+	arm_func_start NewRender3dRectangle
+NewRender3dRectangle: ; 0x01FF8D0C
 	stmdb sp!, {r4, lr}
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	moveq r0, #0
 	ldmeqia sp!, {r4, pc}
@@ -929,12 +929,12 @@ sub_01FF8D0C: ; 0x01FF8D0C
 	mov r0, r4
 	strh r1, [r4]
 	ldmia sp!, {r4, pc}
-	arm_func_end sub_01FF8D0C
+	arm_func_end NewRender3dRectangle
 
-	arm_func_start sub_01FF8D3C
-sub_01FF8D3C: ; 0x01FF8D3C
+	arm_func_start NewRender3dQuadrilateral
+NewRender3dQuadrilateral: ; 0x01FF8D3C
 	stmdb sp!, {r4, lr}
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	moveq r0, #0
 	ldmeqia sp!, {r4, pc}
@@ -945,12 +945,12 @@ sub_01FF8D3C: ; 0x01FF8D3C
 	mov r0, r4
 	strh r1, [r4]
 	ldmia sp!, {r4, pc}
-	arm_func_end sub_01FF8D3C
+	arm_func_end NewRender3dQuadrilateral
 
-	arm_func_start sub_01FF8D6C
-sub_01FF8D6C: ; 0x01FF8D6C
+	arm_func_start NewRender3dTexture
+NewRender3dTexture: ; 0x01FF8D6C
 	stmdb sp!, {r4, lr}
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	moveq r0, #0
 	ldmeqia sp!, {r4, pc}
@@ -961,12 +961,12 @@ sub_01FF8D6C: ; 0x01FF8D6C
 	mov r0, r4
 	strh r1, [r4]
 	ldmia sp!, {r4, pc}
-	arm_func_end sub_01FF8D6C
+	arm_func_end NewRender3dTexture
 
-	arm_func_start sub_01FF8D9C
-sub_01FF8D9C: ; 0x01FF8D9C
+	arm_func_start NewRender3dTiling
+NewRender3dTiling: ; 0x01FF8D9C
 	stmdb sp!, {r4, lr}
-	bl AllocateRender3dElement
+	bl NewRender3dElement
 	movs r4, r0
 	moveq r0, #0
 	ldmeqia sp!, {r4, pc}
@@ -977,10 +977,10 @@ sub_01FF8D9C: ; 0x01FF8D9C
 	mov r0, r4
 	strh r1, [r4]
 	ldmia sp!, {r4, pc}
-	arm_func_end sub_01FF8D9C
+	arm_func_end NewRender3dTiling
 
-	arm_func_start Render3dStack
-Render3dStack: ; 0x01FF8DCC
+	arm_func_start Render3dProcessQueue
+Render3dProcessQueue: ; 0x01FF8DCC
 	stmdb sp!, {r3, r4, r5, r6, r7, lr}
 	sub sp, sp, #0x200
 	ldr r0, _01FF8EFC ; =RENDER_3D
@@ -1045,7 +1045,7 @@ _01FF8E98:
 	blt _01FF8E54
 	mov r6, #0
 	add r5, sp, #0
-	ldr r4, _01FF8F00 ; =_01FF8120
+	ldr r4, _01FF8F00 ; =RENDER_3D_FUNCTIONS
 	ldr r7, _01FF8EFC ; =RENDER_3D
 	b _01FF8EDC
 _01FF8EB4:
@@ -1071,8 +1071,8 @@ _01FF8EF4:
 	ldmia sp!, {r3, r4, r5, r6, r7, pc}
 	.align 2, 0
 _01FF8EFC: .word RENDER_3D
-_01FF8F00: .word _01FF8120
-	arm_func_end Render3dStack
+_01FF8F00: .word RENDER_3D_FUNCTIONS
+	arm_func_end Render3dProcessQueue
 
 	arm_func_start sub_01FF8F04
 sub_01FF8F04: ; 0x01FF8F04
@@ -1419,7 +1419,7 @@ sub_01FF9128: ; 0x01FF9128
 	sub sp, sp, #0x14
 	mov r1, #0xe0
 	mul r3, r0, r1
-	ldr r1, _01FF9290 ; =_022A88DC
+	ldr r1, _01FF9290 ; =WINDOW_LIST
 	add r1, r1, r3
 	str r1, [sp]
 	ldrb r1, [r1, #7]
@@ -1511,7 +1511,7 @@ _01FF9288:
 	add sp, sp, #0x14
 	ldmia sp!, {r4, r5, r6, r7, r8, sb, sl, fp, pc}
 	.align 2, 0
-_01FF9290: .word _022A88DC
+_01FF9290: .word WINDOW_LIST
 _01FF9294: .word _022A88FC
 _01FF9298: .word _022A88F0
 	arm_func_end sub_01FF9128
@@ -1522,7 +1522,7 @@ sub_01FF929C: ; 0x01FF929C
 	sub sp, sp, #0x20
 	mov r1, #0xe0
 	mul r4, r0, r1
-	ldr r1, _01FF9428 ; =_022A88DC
+	ldr r1, _01FF9428 ; =WINDOW_LIST
 	add r1, r1, r4
 	str r1, [sp, #8]
 	ldrb r1, [r1, #7]
@@ -1623,7 +1623,7 @@ _01FF9420:
 	add sp, sp, #0x20
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, pc}
 	.align 2, 0
-_01FF9428: .word _022A88DC
+_01FF9428: .word WINDOW_LIST
 _01FF942C: .word _022A88FC
 _01FF9430: .word _022A88F0
 	arm_func_end sub_01FF929C
@@ -1666,7 +1666,7 @@ _01FF948C:
 	mov r0, #0
 	bx lr
 _01FF9494:
-	ldr r2, _01FF94D0 ; =_020B09B4
+	ldr r2, _01FF94D0 ; =MONSTER_DATA_TABLE_PTR
 	mov r3, r0, lsl #0x1f
 	ldr r2, [r2, #0x14]
 	mov r0, r0, asr #1
@@ -1682,7 +1682,7 @@ _01FF9494:
 	bx lr
 	.align 2, 0
 _01FF94CC: .word 0x0000022B
-_01FF94D0: .word _020B09B4
+_01FF94D0: .word MONSTER_DATA_TABLE_PTR
 	arm_func_end GetKeyN2M
 
 	arm_func_start GetKeyN2MBaseForm
@@ -1743,7 +1743,7 @@ GetKeyM2N: ; 0x01FF9540
 _01FF9564:
 	mov r0, #0
 _01FF9568:
-	ldr r1, _01FF95A4 ; =_020B09B4
+	ldr r1, _01FF95A4 ; =MONSTER_DATA_TABLE_PTR
 	mov r2, r0, lsl #0x1f
 	ldr r3, [r1, #0x1c]
 	mov r1, r0, asr #1
@@ -1759,7 +1759,7 @@ _01FF9568:
 	bx lr
 	.align 2, 0
 _01FF95A0: .word 0x00000483
-_01FF95A4: .word _020B09B4
+_01FF95A4: .word MONSTER_DATA_TABLE_PTR
 _01FF95A8: .word 0x000003FF
 	arm_func_end GetKeyM2N
 
@@ -1785,8 +1785,8 @@ _01FF95D8:
 _01FF95E4: .word 0x00000483
 	arm_func_end GetKeyM2NBaseForm
 
-	arm_func_start sub_01FF95E8
-sub_01FF95E8: ; 0x01FF95E8
+	arm_func_start HardwareInterrupt
+HardwareInterrupt: ; 0x01FF95E8
 	stmdb sp!, {lr}
 	mov ip, #0x4000000
 	add ip, ip, #0x210
@@ -1814,15 +1814,15 @@ _01FF9620:
 	rsbs r0, r0, #0x1f
 	ldr r1, _01FF9648 ; =OS_IRQTable
 	ldr r0, [r1, r0, lsl #2]
-	ldr lr, _01FF964C ; =sub_01FF9650
+	ldr lr, _01FF964C ; =ReturnFromInterrupt
 	bx r0
 	.align 2, 0
 _01FF9648: .word OS_IRQTable
-_01FF964C: .word sub_01FF9650
-	arm_func_end sub_01FF95E8
+_01FF964C: .word ReturnFromInterrupt
+	arm_func_end HardwareInterrupt
 
-	arm_func_start sub_01FF9650
-sub_01FF9650: ; 0x01FF9650
+	arm_func_start ReturnFromInterrupt
+ReturnFromInterrupt: ; 0x01FF9650
 	ldr ip, _01FF97BC ; =DTCM_BSS
 	mov r3, #0
 	ldr ip, [ip]
@@ -1934,7 +1934,7 @@ _01FF97BC: .word DTCM_BSS
 _01FF97C0: .word _022B966C
 _01FF97C4: .word sub_02080EF0
 _01FF97C8: .word sub_02080F30
-	arm_func_end sub_01FF9650
+	arm_func_end ReturnFromInterrupt
 
 	arm_func_start sub_01FF97CC
 sub_01FF97CC: ; 0x01FF97CC
@@ -2140,8 +2140,8 @@ _01FF9A60: .word 0x040001A1
 _01FF9A64: .word 0x04100010
 	arm_func_end sub_01FF9990
 
-	arm_func_start sub_01FF9A68
-sub_01FF9A68: ; 0x01FF9A68
+	arm_func_start InitDmaTransfer_Standard
+InitDmaTransfer_Standard: ; 0x01FF9A68
 	stmdb sp!, {r3, r4, r5, r6, r7, lr}
 	mov r7, r0
 	mov r6, r1
@@ -2158,7 +2158,7 @@ sub_01FF9A68: ; 0x01FF9A68
 	str r4, [r1, #8]
 	bl SetIrqFlag
 	ldmia sp!, {r3, r4, r5, r6, r7, pc}
-	arm_func_end sub_01FF9A68
+	arm_func_end InitDmaTransfer_Standard
 
 	arm_func_start sub_01FF9AA8
 sub_01FF9AA8: ; 0x01FF9AA8
@@ -2829,7 +2829,7 @@ AiMovement: ; 0x01FFA3C4
 	strb r2, [r8, #0x7e]
 	mov r1, #7
 	strb r2, [r8, #0x7f]
-	bl ov29_02301F20
+	bl IsTacticSet
 	cmp r0, #0
 	beq _01FFA428
 	ldrsh r2, [r8, #0x12]
@@ -2847,7 +2847,7 @@ AiMovement: ; 0x01FFA3C4
 _01FFA428:
 	mov r0, r4
 	mov r1, #9
-	bl ov29_02301F20
+	bl IsTacticSet
 	cmp r0, #0
 	bne _01FFA44C
 	mov r0, r4
@@ -2985,7 +2985,7 @@ _01FFA5E0:
 	mov r1, r6
 	mov r2, #0
 	mov r3, #1
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #1
 	bne _01FFA688
 _01FFA640:
@@ -3074,7 +3074,7 @@ _01FFA754:
 	ldr r0, _01FFB2B8 ; =DIRECTIONS_XY
 	ldrsh r5, [r4, #4]
 	ldrsh r2, [r0, r3]
-	ldr r1, _01FFB2BC ; =ov29_0235171E
+	ldr r1, _01FFB2BC ; =DIRECTIONS_XY + 2
 	mov r0, #1
 	add r2, r5, r2
 	strh r2, [sb, #0x8c]
@@ -3233,7 +3233,7 @@ _01FFA9A8:
 	moveq r0, #0
 	beq _01FFAAB8
 	mov r0, r4
-	bl ov29_02300B40
+	bl CheckVariousConditions
 	cmp r0, #0
 	movne r0, #0
 	bne _01FFAAB8
@@ -3360,7 +3360,7 @@ _01FFAB50:
 	mov r1, r5
 	mov r2, #0
 	mov r3, #1
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #1
 	bne _01FFAC60
 	b _01FFABC0
@@ -3439,7 +3439,7 @@ _01FFAC6C:
 	strh r5, [sl, #0x80]
 	strb r2, [sl, #0x7e]
 	str r3, [sl, #0x120 + AI_MOVEMENT_OFFSET]
-	bl ov29_02301F20
+	bl IsTacticSet
 	cmp r0, #0
 	beq _01FFAD0C
 	mov r0, r4
@@ -3466,7 +3466,7 @@ _01FFAD0C:
 _01FFAD14:
 	mov r0, r4
 	mov r1, #1
-	bl ov29_02301F20
+	bl IsTacticSet
 	cmp r0, #0
 	bne _01FFAD7C
 	ldrb r0, [sl, #6]
@@ -3711,7 +3711,7 @@ _01FFB080:
 	add r0, r1, r0
 	cmp r3, r0
 	bne _01FFB0D4
-	ldr r0, _01FFB2BC ; =ov29_0235171E
+	ldr r0, _01FFB2BC ; =DIRECTIONS_XY + 2
 	ldrsh r1, [r4, #6]
 	ldrsh r0, [r0, r2]
 	ldrsh r2, [sb, #0x8e]
@@ -3857,7 +3857,7 @@ _01FFB2AC: .word 0x000003E7
 _01FFB2B0: .word 0x000F423F
 _01FFB2B4: .word DUNGEON_PTR
 _01FFB2B8: .word DIRECTIONS_XY
-_01FFB2BC: .word ov29_0235171E
+_01FFB2BC: .word DIRECTIONS_XY + 2
 _01FFB2C0: .word 0xFFF0BDC1
 _01FFB2C4: .word ov29_0235177C
 	arm_func_end AiMovement
@@ -3935,7 +3935,7 @@ _01FFB38C:
 	mov r3, r8, lsl #2
 	ldrsh r2, [r0, r3]
 	ldrsh r4, [sl, #4]
-	ldr r1, _01FFB628 ; =ov29_0235171E
+	ldr r1, _01FFB628 ; =DIRECTIONS_XY + 2
 	mov r0, #1
 	add r2, r4, r2
 	strh r2, [sb, #0x8c]
@@ -3982,7 +3982,7 @@ _01FFB3F0:
 	ldr r0, _01FFB624 ; =DIRECTIONS_XY
 	ldrsh r4, [sl, #4]
 	ldrsh r2, [r0, r3]
-	ldr r1, _01FFB628 ; =ov29_0235171E
+	ldr r1, _01FFB628 ; =DIRECTIONS_XY + 2
 	mov r0, #1
 	add r2, r4, r2
 	strh r2, [sb, #0x8c]
@@ -4005,7 +4005,7 @@ _01FFB460:
 	ldr r0, _01FFB624 ; =DIRECTIONS_XY
 	ldrsh r4, [sl, #4]
 	ldrsh r2, [r0, r3]
-	ldr r1, _01FFB628 ; =ov29_0235171E
+	ldr r1, _01FFB628 ; =DIRECTIONS_XY + 2
 	mov r0, #1
 	add r2, r4, r2
 	strh r2, [sb, #0x8c]
@@ -4104,7 +4104,7 @@ _01FFB5D8:
 	ldr r0, _01FFB624 ; =DIRECTIONS_XY
 	ldrsh r4, [sl, #4]
 	ldrsh r2, [r0, r3]
-	ldr r1, _01FFB628 ; =ov29_0235171E
+	ldr r1, _01FFB628 ; =DIRECTIONS_XY + 2
 	mov r0, #1
 	add r2, r4, r2
 	strh r2, [sb, #0x8c]
@@ -4117,7 +4117,7 @@ _01FFB5D8:
 _01FFB61C: .word DUNGEON_PTR
 _01FFB620: .word ov29_0235177C
 _01FFB624: .word DIRECTIONS_XY
-_01FFB628: .word ov29_0235171E
+_01FFB628: .word DIRECTIONS_XY + 2
 	arm_func_end CalculateAiTargetPos
 
 	arm_func_start sub_01FFB62C
@@ -4133,9 +4133,13 @@ sub_01FFB62C: ; 0x01FFB62C
 	strh r2, [r3, #0x80]
 	bx lr
 	arm_func_end sub_01FFB62C
+
+	.global _01FFB654
 _01FFB654:
 	.byte 0x05, 0x03, 0x00, 0x00
 
+; https://decomp.me/scratch/zg7V6
+#ifndef NONMATCHING
 	arm_func_start ChooseAiMove
 ChooseAiMove: ; 0x01FFB658
 #ifdef JAPAN
@@ -4160,7 +4164,7 @@ ChooseAiMove: ; 0x01FFB658
 	beq _01FFBD0C
 	mov r0, sl
 	mov r1, #0
-	bl ov29_02300DCC
+	bl MonsterCannotAttack
 	cmp r0, #0
 	bne _01FFBD0C
 	mov r0, sl
@@ -4179,13 +4183,13 @@ ChooseAiMove: ; 0x01FFB658
 _01FFB6CC:
 	mov r0, sl
 	mov r1, #8
-	bl ov29_02301F20
+	bl IsTacticSet
 	cmp r0, #0
 	bne _01FFBD0C
 	ldrb r0, [r7, #0xd0]
 	cmp r0, #2
 	bne _01FFB700
-	ldr r0, _01FFBD18 ; =ov10_022C4580
+	ldr r0, _01FFBD18 ; =AI_CONFUSED_NO_ATTACK_CHANCE
 	ldrsh r0, [r0]
 	bl DungeonRandOutcome__022EAB20
 	cmp r0, #0
@@ -4279,7 +4283,7 @@ _01FFB7F8:
 	beq _01FFBD0C
 	ldrb r1, [sp, #0x1d]
 	add r0, r7, #0x4a
-	bl ov29_022EBC74
+	bl SetActionStruggle
 	mov r0, sl
 	bl UpdateAiTargetPos
 	b _01FFBD0C
@@ -4464,7 +4468,7 @@ _01FFBA7C:
 	movne r0, #2
 	strne r0, [sp, #0x40]
 	ldreq r0, [sp]
-	ldreq r1, _01FFBD1C ; =ov10_022C4900
+	ldreq r1, _01FFBD1C ; =AI_REGULAR_ATTACK_WEIGHTS
 	moveq r0, r0, lsl #1
 	ldreqsh r0, [r1, r0]
 	streq r0, [sp, #0x40]
@@ -4533,7 +4537,7 @@ _01FFBB80:
 	add r1, sp, #0x10
 	mov r0, sl
 	mov r2, r6
-	bl ov29_0231A460
+	bl TargetRegularAttack
 	mov fp, r0
 _01FFBBD8:
 	cmp r6, #0
@@ -4548,7 +4552,7 @@ _01FFBBD8:
 	add r1, sp, #0x10
 	mov r0, sl
 	mov r2, #1
-	bl ov29_0231A460
+	bl TargetRegularAttack
 	mov fp, r0
 _01FFBC10:
 	mov r8, #0
@@ -4628,239 +4632,7 @@ _01FFBD0C:
 	ldmia sp!, {r4, r5, r6, r7, r8, sb, sl, fp, pc}
 	.align 2, 0
 _01FFBD14: .word DUNGEON_PTR
-_01FFBD18: .word ov10_022C4580
-_01FFBD1C: .word ov10_022C4900
+_01FFBD18: .word AI_CONFUSED_NO_ATTACK_CHANCE
+_01FFBD1C: .word AI_REGULAR_ATTACK_WEIGHTS
 	arm_func_end ChooseAiMove
-
-	arm_func_start sub_01FFBD20
-sub_01FFBD20: ; 0x01FFBD20
-	stmdb sp!, {r3, r4, r5, r6, r7, lr}
-	mov r6, r1
-	mov r7, r0
-	mov r0, r6
-	bl IsMonster__0231A9D4
-	cmp r0, #0
-	ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-	ldr r5, [r6, #0xb4]
-	ldrb r0, [r5, #6]
-	cmp r0, #0
-	beq _01FFBD5C
-	ldrb r0, [r5, #8]
-	cmp r0, #0
-	moveq r3, #1
-	beq _01FFBD60
-_01FFBD5C:
-	mov r3, #0
-_01FFBD60:
-	ldr r1, _01FFBDF0 ; =DUNGEON_PTR
-	mov r0, r6
-	ldr r2, [r1]
-	mov r1, #0x32
-#ifdef JAPAN
-	add r2, r2, #0x1840
-	add r2, r2, #0x18000
-#else
-	add r2, r2, #0xe4
-	add r2, r2, #0x19800
 #endif
-	add r4, r2, r3, lsl #4
-	bl AbilityIsActiveVeneer
-	cmp r0, #0
-	beq _01FFBDB0
-	ldr r0, [r4]
-	cmp r0, #0
-	bne _01FFBDB0
-	mov r0, r7
-	mov r1, r6
-	bl sub_01FFBF78
-	cmp r0, #0
-	strne r6, [r4]
-	ldrne r0, [r5, #0xb0]
-	strne r0, [r4, #4]
-_01FFBDB0:
-	mov r0, r6
-	mov r1, #0x7a
-	bl AbilityIsActiveVeneer
-	cmp r0, #0
-	ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-	ldr r0, [r4, #8]
-	cmp r0, #0
-	ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-	mov r0, r7
-	mov r1, r6
-	bl sub_01FFBF78
-	cmp r0, #0
-	strne r6, [r4, #8]
-	ldrne r0, [r5, #0xb0]
-	strne r0, [r4, #0xc]
-	ldmia sp!, {r3, r4, r5, r6, r7, pc}
-	.align 2, 0
-_01FFBDF0: .word DUNGEON_PTR
-	arm_func_end sub_01FFBD20
-
-	arm_func_start sub_01FFBDF4
-sub_01FFBDF4: ; 0x01FFBDF4
-	stmdb sp!, {r3, r4, r5, r6, r7, lr}
-	mov r7, r0
-	bl ov29_0231B008
-	mov r0, r7
-	bl EntityIsValid__02319F8C
-	cmp r0, #0
-	ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-	ldr r4, _01FFBE58 ; =DUNGEON_PTR
-	mov r5, #0
-_01FFBE18:
-	ldr r0, [r4]
-	add r0, r0, r5, lsl #2
-	add r0, r0, #0x12000
-#ifdef JAPAN
-	ldr r6, [r0, #0xad4]
-#else
-	ldr r6, [r0, #0xb78]
-#endif
-	mov r0, r6
-	bl EntityIsValid__02319F8C
-	cmp r0, #0
-	cmpne r7, r6
-	beq _01FFBE48
-	mov r0, r7
-	mov r1, r6
-	bl sub_01FFBD20
-_01FFBE48:
-	add r5, r5, #1
-	cmp r5, #0x14
-	blt _01FFBE18
-	ldmia sp!, {r3, r4, r5, r6, r7, pc}
-	.align 2, 0
-_01FFBE58: .word DUNGEON_PTR
-	arm_func_end sub_01FFBDF4
-
-	arm_func_start LightningRodStormDrainCheck
-LightningRodStormDrainCheck: ; 0x01FFBE5C
-	stmdb sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, lr}
-	mov sl, r0
-	mov sb, r1
-	mov r8, r2
-	mov r7, r3
-	mov r5, #0
-	ldr r4, _01FFBF70 ; =_01FFB654
-	ldr fp, _01FFBF74 ; =DUNGEON_PTR
-	b _01FFBF60
-_01FFBE80:
-	ldr r1, [fp]
-	mov r0, sl
-#ifdef JAPAN
-	add r1, r1, #0x1840
-	add r1, r1, #0x18000
-#else
-	add r1, r1, #0xe4
-	add r1, r1, #0x19800
-#endif
-	add r6, r1, r5, lsl #4
-	mov r1, #0x53
-	bl AbilityIsActiveVeneer
-	cmp r0, #0
-	bne _01FFBF5C
-	mov r0, sl
-	mov r1, r8
-	bl GetMoveTypeForMonster
-	ldrb r1, [r4, r7]
-	cmp r1, r0
-	bne _01FFBF5C
-	mov r0, sl
-	mov r1, r8
-	mov r2, #0
-	bl GetEntityMoveTargetAndRange
-	and r0, r0, #0xf0
-	cmp r0, #0x70
-	beq _01FFBF5C
-	ldr r0, [r6, r7, lsl #3]
-	bl IsMonster__0231A9D4
-	cmp r0, #0
-	beq _01FFBF4C
-	ldr r0, [r6, r7, lsl #3]
-	add r1, r6, r7, lsl #3
-	ldr r2, [r1, #4]
-	ldr r1, [r0, #0xb4]
-	ldr r1, [r1, #0xb0]
-	cmp r2, r1
-	bne _01FFBF4C
-	mov r1, sl
-	mov r2, #1
-	mov r3, #0
-	bl ov29_0230175C
-	cmp r0, #1
-	bne _01FFBF4C
-	ldr r0, [sb, #0xb4]
-	ldr r2, [r6, r7, lsl #3]
-#ifdef JAPAN
-	ldrb r0, [r0, #0x10a]
-	ldr r1, [r2, #0xb4]
-	cmp r0, #0
-	ldreqb r0, [r1, #0x10a]
-#else
-	ldrb r0, [r0, #0x10b]
-	ldr r1, [r2, #0xb4]
-	cmp r0, #0
-	ldreqb r0, [r1, #0x10b]
-#endif
-	cmpeq r0, #0
-	beq _01FFBF44
-	cmp sb, r2
-	bne _01FFBF4C
-_01FFBF44:
-	mov r0, #1
-	b _01FFBF50
-_01FFBF4C:
-	mov r0, #0
-_01FFBF50:
-	cmp r0, #0
-	ldrne r0, [r6, r7, lsl #3]
-	ldmneia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, pc}
-_01FFBF5C:
-	add r5, r5, #1
-_01FFBF60:
-	cmp r5, #2
-	blt _01FFBE80
-	mov r0, #0
-	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, pc}
-	.align 2, 0
-_01FFBF70: .word _01FFB654
-_01FFBF74: .word DUNGEON_PTR
-	arm_func_end LightningRodStormDrainCheck
-
-	arm_func_start sub_01FFBF78
-sub_01FFBF78: ; 0x01FFBF78
-	stmdb sp!, {r4, r5, r6, lr}
-	sub sp, sp, #0x10
-	mov r6, r0
-	mov r5, r1
-	mov r4, #0
-	bl ov29_0231985C
-	mov r0, r6
-	mov r1, r5
-	bl CanSeeTarget
-	cmp r0, #0
-	beq _01FFBFD8
-	add r0, sp, #8
-	mov r1, r4
-	bl InitMove
-	add r0, sp, #8
-	str r0, [sp]
-	mov ip, #1
-	mov r2, r6
-	mov r3, r5
-	mov r0, r4
-	mov r1, #0x30
-	str ip, [sp, #4]
-	bl TryAddTargetToAiTargetList
-	mov r4, r0
-_01FFBFD8:
-	cmp r4, #0
-	movne r0, #1
-	moveq r0, #0
-	and r0, r0, #0xff
-	add sp, sp, #0x10
-	ldmia sp!, {r4, r5, r6, pc}
-	arm_func_end sub_01FFBF78
-	; 0x01FFBFF0

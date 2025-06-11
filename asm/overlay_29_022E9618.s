@@ -11,8 +11,8 @@ GetLeaderMonster: ; 0x022E9618
 	ldmia sp!, {r3, pc}
 	arm_func_end GetLeaderMonster
 
-	arm_func_start ov29_022E9628
-ov29_022E9628: ; 0x022E9628
+	arm_func_start GetRandomTile
+GetRandomTile: ; 0x022E9628
 	stmdb sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, lr}
 	sub sp, sp, #0xe20
 	mov sl, r0
@@ -165,7 +165,7 @@ _022E9830:
 _022E983C:
 	add sp, sp, #0xe20
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, pc}
-	arm_func_end ov29_022E9628
+	arm_func_end GetRandomTile
 
 	arm_func_start FindNearbyUnoccupiedTile
 FindNearbyUnoccupiedTile: ; 0x022E9844
@@ -379,14 +379,14 @@ ov29_022E9A9C: ; 0x022E9A9C
 	mov r0, sb
 	mov r1, #1
 	ldrb r4, [r8, #0x4c]
-	bl ov29_02300818
+	bl CheckVariousStatuses2
 	cmp r0, #0
 	beq _022E9B00
 	ldr r0, _022E9CA0 ; =DIRECTIONS_XY
 	mov r2, r4, lsl #2
 	ldrsh r1, [r0, r2]
 	ldrsh r3, [sb, #4]
-	ldr r0, _022E9CA4 ; =ov29_0235171E
+	ldr r0, _022E9CA4 ; =DIRECTIONS_XY + 2
 	add r1, r1, r1, lsl #1
 	add r1, r3, r1
 	strh r1, [sl]
@@ -472,7 +472,7 @@ _022E9BE0:
 	mov r1, r7
 	mov r0, sb
 	mov r3, r2
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #1
 	streqh fp, [sl]
 	streqh r5, [sl, #2]
@@ -493,7 +493,7 @@ _022E9C44:
 	ldrsh r2, [sb, #4]
 	mov r1, r1, lsl #2
 	ldrsh r1, [r0, r1]
-	ldr r0, _022E9CA4 ; =ov29_0235171E
+	ldr r0, _022E9CA4 ; =DIRECTIONS_XY + 2
 	add r1, r2, r1, lsl #1
 	strh r1, [sl]
 	ldrb r1, [r8, #0x4c]
@@ -512,7 +512,7 @@ _022E9C98:
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, fp, pc}
 	.align 2, 0
 _022E9CA0: .word DIRECTIONS_XY
-_022E9CA4: .word ov29_0235171E
+_022E9CA4: .word DIRECTIONS_XY + 2
 _022E9CA8: .word DUNGEON_PTR
 _022E9CAC: .word ov29_0235179C
 _022E9CB0: .word ov29_023517A0
@@ -862,14 +862,14 @@ _022EA0F8:
 	cmpne r0, #0xc
 	bne _022EA140
 	mov r0, #0
-	bl ov29_02339A24
+	bl FlashLeaderIcon
 	b _022EA154
 _022EA140:
 	bl sub_0204AEA0
 	cmp r0, #3
 	bne _022EA154
 	mov r0, #1
-	bl ov29_02339A24
+	bl FlashLeaderIcon
 _022EA154:
 	bl ov29_022EA64C
 	bl ov29_022EA80C
@@ -942,7 +942,7 @@ _022EA214:
 	add r2, r2, #0x1a000
 	bl ov29_022ED800
 _022EA260:
-	bl ov29_02338AC4
+	bl RenderWeather3D
 	bl ov29_022E8C10
 	ldr r0, _022EA290 ; =DUNGEON_PTR
 	ldr r0, [r0]
@@ -1562,102 +1562,3 @@ SetDungeonRngPreseed: ; 0x022EA9DC
 	.align 2, 0
 _022EA9E8: .word DUNGEON_PRNG_STATE
 	arm_func_end SetDungeonRngPreseed
-
-	arm_func_start InitDungeonRng
-InitDungeonRng: ; 0x022EA9EC
-	ldr r1, _022EAA18 ; =DUNGEON_PRNG_STATE
-	orr r2, r0, #1
-	str r2, [r1, #0xc]
-	mov r2, #0
-	str r2, [r1, #4]
-	ldr r1, _022EAA1C ; =DUNGEON_PRNG_STATE_SECONDARY_VALUES
-_022EAA04:
-	str r0, [r1, r2, lsl #2]
-	add r2, r2, #1
-	cmp r2, #5
-	blt _022EAA04
-	bx lr
-	.align 2, 0
-_022EAA18: .word DUNGEON_PRNG_STATE
-_022EAA1C: .word DUNGEON_PRNG_STATE_SECONDARY_VALUES
-	arm_func_end InitDungeonRng
-
-	arm_func_start DungeonRand16Bit
-DungeonRand16Bit: ; 0x022EAA20
-	stmdb sp!, {r3, lr}
-	ldr r1, _022EAA88 ; =DUNGEON_PRNG_STATE
-	ldrb r0, [r1]
-	cmp r0, #0
-	ldr r0, _022EAA8C ; =0x5D588B65
-	beq _022EAA5C
-	ldr lr, [r1, #0x10]
-	ldr r3, _022EAA90 ; =DUNGEON_PRNG_STATE_SECONDARY_VALUES
-	ldr r1, _022EAA94 ; =0x00269EC3
-	ldr r2, [r3, lr, lsl #2]
-	umull ip, r0, r2, r0
-	adds r1, ip, r1
-	mov r0, r1, lsl #0x10
-	str r1, [r3, lr, lsl #2]
-	b _022EAA80
-_022EAA5C:
-	ldr r2, [r1, #4]
-	add r2, r2, #1
-	str r2, [r1, #4]
-	ldr r2, [r1, #0xc]
-	mul r0, r2, r0
-	add r2, r0, #1
-	mov r0, r2, lsr #0x10
-	mov r0, r0, lsl #0x10
-	str r2, [r1, #0xc]
-_022EAA80:
-	mov r0, r0, lsr #0x10
-	ldmia sp!, {r3, pc}
-	.align 2, 0
-_022EAA88: .word DUNGEON_PRNG_STATE
-_022EAA8C: .word 0x5D588B65
-_022EAA90: .word DUNGEON_PRNG_STATE_SECONDARY_VALUES
-_022EAA94: .word 0x00269EC3
-	arm_func_end DungeonRand16Bit
-
-	arm_func_start DungeonRandInt
-DungeonRandInt: ; 0x022EAA98
-	stmdb sp!, {r4, lr}
-	mov r4, r0
-	bl DungeonRand16Bit
-	mov r0, r0, lsl #0x10
-	mov r1, r0, lsr #0x10
-	mul r0, r1, r4
-	mov r0, r0, asr #0x10
-	mov r0, r0, lsl #0x10
-	mov r0, r0, lsr #0x10
-	ldmia sp!, {r4, pc}
-	arm_func_end DungeonRandInt
-
-	arm_func_start DungeonRandRange
-DungeonRandRange: ; 0x022EAAC0
-	stmdb sp!, {r3, r4, r5, lr}
-	mov r5, r0
-	mov r4, r1
-	cmp r5, r4
-	ldmeqia sp!, {r3, r4, r5, pc}
-	bge _022EAAFC
-	bl DungeonRand16Bit
-	mov r0, r0, lsl #0x10
-	mov r1, r0, lsr #0x10
-	sub r0, r4, r5
-	mul r0, r1, r0
-	mov r0, r0, asr #0x10
-	mov r0, r0, lsl #0x10
-	add r0, r5, r0, lsr #16
-	ldmia sp!, {r3, r4, r5, pc}
-_022EAAFC:
-	bl DungeonRand16Bit
-	mov r0, r0, lsl #0x10
-	mov r1, r0, lsr #0x10
-	sub r0, r5, r4
-	mul r0, r1, r0
-	mov r0, r0, asr #0x10
-	mov r0, r0, lsl #0x10
-	add r0, r4, r0, lsr #16
-	ldmia sp!, {r3, r4, r5, pc}
-	arm_func_end DungeonRandRange

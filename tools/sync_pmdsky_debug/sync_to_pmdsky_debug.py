@@ -7,7 +7,7 @@ from ruamel.yaml.comments import CommentedMap
 from ruamel.yaml.scalarint import HexCapsInt
 
 from pmdsky_debug_reader import LANGUAGE_KEYS_XMAP_TO_PMDSKY_DEBUG, SYMBOLS_FOLDER, get_pmdsky_debug_location, read_pmdsky_debug_symbols
-from symbol_details import NONMATCHING_SYMBOLS_ARM7, NONMATCHING_SYMBOLS_ARM9, WRAM_OFFSET, SymbolDetails
+from symbol_details import ITCM_RAM_START_ADDRESSES, NONMATCHING_SYMBOLS_ARM7, NONMATCHING_SYMBOLS_ARM9, WRAM_OFFSET, SymbolDetails
 from xmap_reader import HEADER_FOLDER, read_xmap_symbols
 from yaml_writer import YamlManager, yaml
 
@@ -44,6 +44,7 @@ def find_symbol_in_header(symbol_name: str, is_data: bool, header_contents: List
 class SubsymbolDir:
     file_path: str
     addresses: Dict[str, int]
+    length: Dict[str, int]
 
 subsymbol_dirs = {}
 
@@ -99,12 +100,13 @@ def sync_xmap_symbol(address: int, symbol: SymbolDetails, language: str, section
                         file_path = os.path.join(root, file)
                         with open(file_path, 'r') as yaml_file:
                             yaml_contents = yaml.load(yaml_file)
-                            subsymbol_dirs[subsymbol_dir].append(SubsymbolDir(file_path, yaml_contents[file[:-4]]['address']))
+                            subsymbol_dirs[subsymbol_dir].append(SubsymbolDir(file_path, yaml_contents[file[:-4]]['address'], yaml_contents[file[:-4]]['length']))
 
         if subsymbol_dirs[subsymbol_dir] is not None:
             matching_subsymbol_file = None
             for file in subsymbol_dirs[subsymbol_dir]:
-                if address > file.addresses[language_key] and (matching_subsymbol_file is None or file.addresses[language_key] > matching_subsymbol_file.addresses[language_key]):
+                file_address = file.addresses[language_key]
+                if address > file_address and address < file_address + file.length[language_key] and (matching_subsymbol_file is None or file_address > matching_subsymbol_file.addresses[language_key]):
                     matching_subsymbol_file = file
             if matching_subsymbol_file is not None:
                 symbol_path = matching_subsymbol_file.file_path
@@ -157,13 +159,13 @@ def sync_xmap_symbol(address: int, symbol: SymbolDetails, language: str, section
             # Keep track of the symbol directly before the target symbol.
             # This will be used as an anchor when appending to the header file.
             symbol_header_line = find_symbol_in_header(symbol_entry['name'], symbol.is_data, header_contents)
-            if symbol_header_line is not None:
-                target_header_line = symbol_header_line
+            if symbol_header_line is not None and insert_index is None:
+                target_header_line = symbol_header_line - 1
             if language_key in symbol_entry['address']:
                 current_symbol_address: int | List[int] = symbol_entry['address'][language_key]
                 if isinstance(current_symbol_address, list):
                     current_symbol_address = current_symbol_address[0]
-                if current_symbol_address > address and insert_index is not None:
+                if current_symbol_address > address and insert_index is None:
                     insert_index = i
     if not matching_symbol_entry:
         matching_symbol_entry = {
@@ -175,10 +177,6 @@ def sync_xmap_symbol(address: int, symbol: SymbolDetails, language: str, section
         else:
             symbol_array.insert(insert_index, matching_symbol_entry)
 
-    if symbol_preexisting:
-        print(f'Updating address of {base_symbol_name} in {base_symbol_path}')
-    else:
-        print(f'Adding {base_symbol_name} to {base_symbol_path}')
 
     symbol_entry_language_addresses: Dict[str, Any] = matching_symbol_entry['address']
     if language_key not in symbol_entry_language_addresses:
@@ -204,14 +202,24 @@ def sync_xmap_symbol(address: int, symbol: SymbolDetails, language: str, section
                 symbol_entry_addresses.sort()
             return
     else:
-        symbol_entry_language_addresses[language_key] = HexCapsInt(hex_address)
-        if reorder_languages:
-            symbol_entry_language_addresses.move_to_end(language_key, last=False)
+        if section_name == 'ITCM':
+            # ITCM needs to be handled specially to add both ROM and RAM addresses.
+            symbol_entry_language_addresses[language_key] = HexCapsInt(ITCM_RAM_START_ADDRESSES[language_key] + (hex_address - 0x1FF8000))
+            symbol_entry_language_addresses[f'{language_key}-ITCM'] = hex_address
+        else:
+            symbol_entry_language_addresses[language_key] = HexCapsInt(hex_address)
+            if reorder_languages:
+                symbol_entry_language_addresses.move_to_end(language_key, last=False)
 
         if wram_address is not None:
             symbol_entry_language_addresses[language_key + '-WRAM'] = HexCapsInt(wram_address)
             if reorder_languages:
                 symbol_entry_language_addresses.move_to_end('NA-WRAM')
+
+    if symbol_preexisting:
+        print(f'Updating address of {base_symbol_name} (region {language_key}) in {symbol_path}')
+    else:
+        print(f'Adding {base_symbol_name} (region {language_key}) to {symbol_path}')
 
     if symbol_preexisting:
         return
@@ -264,16 +272,19 @@ def sync_xmap_symbol(address: int, symbol: SymbolDetails, language: str, section
                 symbol_header = line
                 break
         # Match the typedefs used in pmdsky-debug.
-        symbol_header = symbol_header.replace('u32', 'uint32_t')
-        symbol_header = symbol_header.replace('u16', 'uint16_t')
-        symbol_header = symbol_header.replace('u8', 'uint8_t')
-        symbol_header = symbol_header.replace('s32', 'int')
-        symbol_header = symbol_header.replace('s16', 'int16_t')
-        symbol_header = symbol_header.replace('s8', 'int8_t')
+        if symbol_header is not None:
+            symbol_header = symbol_header.replace('u32', 'uint32_t')
+            symbol_header = symbol_header.replace('u16', 'uint16_t')
+            symbol_header = symbol_header.replace('u8', 'uint8_t')
+            symbol_header = symbol_header.replace('s32', 'int')
+            symbol_header = symbol_header.replace('s16', 'int16_t')
+            symbol_header = symbol_header.replace('s8', 'int8_t')
     else:
         symbol_header = f'void {base_symbol_name}(void);\n'
 
-    header_contents[target_header_line - 1] += symbol_header
+    header_contents[target_header_line] += symbol_header
+
+    print(f'Adding {base_symbol_name} to {header_path}')
 
     with open(header_path, 'w') as header_file:
         header_file.writelines(header_contents)

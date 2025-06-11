@@ -109,8 +109,8 @@ _022ECF3C: .word 0x00000A41
 _022ECF40: .word 0x000003E7
 	arm_func_end ov29_022ECDE4
 
-	arm_func_start ov29_022ECF44
-ov29_022ECF44: ; 0x022ECF44
+	arm_func_start IsDungeonEndReasonFailure
+IsDungeonEndReasonFailure: ; 0x022ECF44
 	ldr r1, _022ECF6C ; =DUNGEON_PTR
 	ldr r0, _022ECF70 ; =0x0002CA66
 	ldr r2, [r1]
@@ -129,7 +129,7 @@ _022ECF70: .word 0x0002C9C2
 _022ECF70: .word 0x0002CA66
 #endif
 _022ECF74: .word 0x00000279
-	arm_func_end ov29_022ECF44
+	arm_func_end IsDungeonEndReasonFailure
 
 	arm_func_start ov29_022ECF78
 ov29_022ECF78: ; 0x022ECF78
@@ -803,8 +803,8 @@ BindTrapToTile: ; 0x022ED858
 	bx lr
 	arm_func_end BindTrapToTile
 
-	arm_func_start ov29_022ED868
-ov29_022ED868: ; 0x022ED868
+	arm_func_start AreLateGameTrapsEnabledWrapper
+AreLateGameTrapsEnabledWrapper: ; 0x022ED868
 	ldr r0, _022ED880 ; =DUNGEON_PTR
 	ldr ip, _022ED884 ; =AreLateGameTrapsEnabled
 	ldr r0, [r0]
@@ -818,7 +818,7 @@ ov29_022ED868: ; 0x022ED868
 	.align 2, 0
 _022ED880: .word DUNGEON_PTR
 _022ED884: .word AreLateGameTrapsEnabled
-	arm_func_end ov29_022ED868
+	arm_func_end AreLateGameTrapsEnabledWrapper
 
 	arm_func_start ov29_022ED888
 ov29_022ED888: ; 0x022ED888
@@ -1273,8 +1273,8 @@ _022EDE78: .word 0x00000E58
 #endif
 	arm_func_end TrySpawnTrapperTrap
 
-	arm_func_start ov29_022EDE7C
-ov29_022EDE7C: ; 0x022EDE7C
+	arm_func_start TryRemoveTrap
+TryRemoveTrap: ; 0x022EDE7C
 	stmdb sp!, {r4, lr}
 	mov r2, r0
 	mov r4, r1
@@ -1302,7 +1302,7 @@ _022EDECC:
 _022EDED4:
 	mov r0, #0
 	ldmia sp!, {r4, pc}
-	arm_func_end ov29_022EDE7C
+	arm_func_end TryRemoveTrap
 
 	arm_func_start ov29_022EDEDC
 ov29_022EDEDC: ; 0x022EDEDC
@@ -1454,7 +1454,7 @@ _022EE05C:
 	bne _022EE0C8
 	mov r0, sb
 	mov r1, #1
-	bl ov29_022EDE7C
+	bl TryRemoveTrap
 	ldr r8, _022EE304 ; =0x00000E5A
 _022EE0C8:
 	ldr r0, [sp, #0xc + TRY_TRIGGER_TRAP_OFFSET]
@@ -1504,7 +1504,7 @@ _022EE148:
 	bl IqSkillIsEnabled
 	cmp r0, #0
 	beq _022EE1D8
-	ldr r0, _022EE310 ; =ov10_022C445C
+	ldr r0, _022EE310 ; =TRAP_BUSTER_ACTIVATION_CHANCE
 	ldrsh r0, [r0]
 	bl DungeonRandOutcome__022EAB20
 	cmp r0, #0
@@ -1519,7 +1519,7 @@ _022EE148:
 	bne _022EE1A4
 	mov r0, sb
 	mov r1, #1
-	bl ov29_022EDE7C
+	bl TryRemoveTrap
 	ldr r7, _022EE304 ; =0x00000E5A
 _022EE1A4:
 	cmp r7, #0
@@ -1628,7 +1628,7 @@ _022EE2E0:
 	beq _022EE2F4
 	mov r0, sb
 	mov r1, #1
-	bl ov29_022EDE7C
+	bl TryRemoveTrap
 _022EE2F4:
 	add sp, sp, #0x14 + TRY_TRIGGER_TRAP_OFFSET
 #ifdef JAPAN
@@ -1647,22 +1647,6 @@ _022EE300: .word 0x00000E5B + TRY_TRIGGER_TRAP_DATA_OFFSET
 _022EE304: .word 0x00000E5A + TRY_TRIGGER_TRAP_DATA_OFFSET
 _022EE308: .word DUNGEON_PTR
 _022EE30C: .word 0x00000E5C + TRY_TRIGGER_TRAP_DATA_OFFSET
-_022EE310: .word ov10_022C445C
+_022EE310: .word TRAP_BUSTER_ACTIVATION_CHANCE
 _022EE314: .word 0x00000E5D + TRY_TRIGGER_TRAP_DATA_OFFSET
 	arm_func_end TryTriggerTrap
-
-	arm_func_start ItemIsActive__022EE318
-ItemIsActive__022EE318: ; 0x022EE318
-	stmdb sp!, {r3, r4, r5, lr}
-	mov r4, r1
-	mov r1, #0x6f
-	mov r5, r0
-	bl AbilityIsActiveVeneer
-	cmp r0, #0
-	movne r0, #0
-	ldmneia sp!, {r3, r4, r5, pc}
-	mov r0, r5
-	mov r1, r4
-	bl HasHeldItem
-	ldmia sp!, {r3, r4, r5, pc}
-	arm_func_end ItemIsActive__022EE318

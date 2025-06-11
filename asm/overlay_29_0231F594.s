@@ -94,7 +94,7 @@ _0231F6B4:
 	mov r1, #1
 	ldr r0, [r0]
 	strb r1, [r0, #0x78f]
-	bl ov29_02304B64
+	bl DetermineAllMonsterShadow
 	bl UpdateMinimap
 	bl UpdateTrapsVisibility
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, pc}
@@ -200,7 +200,7 @@ _0231F7A0:
 	add r2, r2, #4
 	mov r1, r1, lsl #8
 	mov r2, r2, lsl #8
-	bl ov29_022E1A84
+	bl SetEntityPixelPosXY
 	mov r1, #0
 	strh r1, [r5, #0x26]
 	mov r1, #1
@@ -405,7 +405,7 @@ _0231FA9C:
 	ldr r1, [r2, #0x2f4]
 	ldr r2, [r2, #0x2f8]
 	str r0, [sp, #4]
-	bl ov29_022E1A90
+	bl IncrementEntityPixelPosXY
 	mov r0, r8
 	bl sub_020018D0
 	mov r1, #0xc

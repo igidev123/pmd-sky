@@ -5553,7 +5553,7 @@ _0232DAFC:
 	mov r2, r5
 	bl ov01_0232E334
 	ldrsh r0, [r8, #4]
-	bl sub_02062B64
+	bl IsMonsterIllegalForMissions
 	cmp r0, #0
 	bne _0232DB68
 	add r0, r8, #0x22
@@ -14588,7 +14588,7 @@ _02334F74:
 	mov r2, r5
 #endif
 	str r6, [sp]
-	bl sub_0202676C
+	bl DrawChar
 _02334F94:
 	add r8, r8, #1
 	add r7, r7, #2
@@ -14642,7 +14642,7 @@ _02334FF8:
 	str r0, [sp]
 	mov r0, sl
 	add r2, r4, #0x14
-	bl sub_0202676C
+	bl DrawChar
 _02335034:
 	add r0, r6, #1
 	mov r0, r0, lsl #0x10
@@ -15001,7 +15001,7 @@ _0233540C:
 	add r1, r0, #0xfc
 	cmp r5, r1
 	bge _02335488
-	bl sub_02025888
+	bl AllocateTemp1024ByteBufferFromPool
 	ldr r1, _023355C4 ; =ov01_0233C1A0
 	sub r2, r5, #0xfc
 	ldr r3, [r1, #4]
@@ -22232,6 +22232,7 @@ _0233AE74: .word ov01_0233C0A4
 	arm_func_end ov01_0233AE64
 	; 0x0233AE78
 
+	.rodata
 	.global ov01_0233AE78
 ov01_0233AE78:
 	.byte 0x44, 0x41, 0x54, 0x41, 0x30, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00

@@ -12,11 +12,11 @@
 .public GetApparentWeather
 .public GetTile
 .public GetTileSafe
+.public IncrementEntityPixelPosXY
 .public IsFloorOver
 .public LogMessageByIdWithPopupCheckUser
 .public LogMessageByIdWithPopupCheckUserTarget
 .public MoveMonsterToPos
-.public ov29_022E1A90
 .public ov29_022E5560
 .public ov29_022E55F0
 .public ov29_022E56A0
@@ -25,7 +25,6 @@
 .public ov29_02320AA4
 .public ov29_02321238
 .public ov29_02336694
-.public ov29_0235171E
 .public ov29_023529B8
 .public ov29_02353700
 .public RemoveGroundItem

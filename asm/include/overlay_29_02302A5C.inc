@@ -1,5 +1,6 @@
 #pragma once
 .public _020AFC4C
+.public AllocateTemp1024ByteBufferFromPool
 .public ChangeMonsterAnimation
 .public DIRECTIONS_XY
 .public DisplayMessage
@@ -62,7 +63,6 @@
 .public ov29_0234D304
 .public ov29_0234D484
 .public ov29_0234FAEC
-.public ov29_0235171E
 .public ov29_023527F0
 .public ov29_0235280C
 .public ov29_02352810
@@ -88,7 +88,6 @@
 .public sub_0201D110
 .public sub_0201D198
 .public sub_0201D1B0
-.public sub_02025888
 .public sub_0204F610
 .public sub_02053904
 .public sub_02054FB8

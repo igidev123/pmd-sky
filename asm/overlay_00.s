@@ -3,6 +3,7 @@
 
 	.text
 
+; https://decomp.me/scratch/rqTSp
 	arm_func_start ov00_022BCA80
 ov00_022BCA80: ; 0x022BCA80
 	stmdb sp!, {r4, r5, r6, lr}
@@ -2333,7 +2334,7 @@ _022BE1E8:
 	beq _022BE304
 	cmp r0, #2
 	bne _022BE234
-	bl ov00_022BE918
+	bl SelectRandomBackground
 	cmp sl, #1
 	bne _022BE224
 	mov r0, #0
@@ -2919,8 +2920,8 @@ _022BE910: .word ov00_023187F0
 _022BE914: .word ov00_023187F4
 	arm_func_end ov00_022BE8D0
 
-	arm_func_start ov00_022BE918
-ov00_022BE918: ; 0x022BE918
+	arm_func_start SelectRandomBackground
+SelectRandomBackground: ; 0x022BE918
 	stmdb sp!, {r3, lr}
 	sub sp, sp, #8
 	mov r0, #7
@@ -2941,7 +2942,7 @@ ov00_022BE918: ; 0x022BE918
 	.align 2, 0
 _022BE95C: .word ov00_023187F0
 _022BE960: .word ov00_023187F4
-	arm_func_end ov00_022BE918
+	arm_func_end SelectRandomBackground
 
 	arm_func_start ov00_022BE964
 ov00_022BE964: ; 0x022BE964
@@ -32293,7 +32294,7 @@ ov00_022D73E0: ; 0x022D73E0
 	ldr r2, [r0, #8]
 	cmp r2, #0
 	bne _022D7408
-	ldr r1, _022D742C ; =sub_01FF95E8
+	ldr r1, _022D742C ; =HardwareInterrupt
 	str r1, [r0, #8]
 	ldr r1, [r0, #0xc]
 	add r1, r1, #1
@@ -32301,7 +32302,7 @@ ov00_022D73E0: ; 0x022D73E0
 	mov r0, #1
 	bx lr
 _022D7408:
-	ldr r1, _022D742C ; =sub_01FF95E8
+	ldr r1, _022D742C ; =HardwareInterrupt
 	cmp r2, r1
 	movne r0, #0
 	bxne lr
@@ -32311,14 +32312,14 @@ _022D7408:
 	mov r0, #1
 	bx lr
 	.align 2, 0
-_022D742C: .word sub_01FF95E8
+_022D742C: .word HardwareInterrupt
 	arm_func_end ov00_022D73E0
 
 	arm_func_start ov00_022D7430
 ov00_022D7430: ; 0x022D7430
 	stmdb sp!, {r3, lr}
 	ldr r2, [r0, #8]
-	ldr r1, _022D7464 ; =sub_01FF95E8
+	ldr r1, _022D7464 ; =HardwareInterrupt
 	cmp r2, r1
 	ldmneia sp!, {r3, pc}
 	ldr r1, [r0, #0xc]
@@ -32330,7 +32331,7 @@ ov00_022D7430: ; 0x022D7430
 	bl sub_020798D8
 	ldmia sp!, {r3, pc}
 	.align 2, 0
-_022D7464: .word sub_01FF95E8
+_022D7464: .word HardwareInterrupt
 	arm_func_end ov00_022D7430
 
 	arm_func_start ov00_022D7468
@@ -39107,7 +39108,7 @@ _022DCBB8:
 	add r8, r8, #2
 	blt _022DCBB8
 	add r0, sp, #0x38
-	bl sub_0207BA08
+	bl GetDsFirmwareUserSettings
 	ldrb r0, [sp, #0x38]
 	ldr r2, _022DCD80 ; =ov00_02318D08
 	mov r1, #3
@@ -108620,6 +108621,7 @@ _02317F3C:
 	arm_func_end ov00_02317EF8
 	; 0x02317F44
 
+	.rodata
 #ifdef EUROPE
 	.global ov00_02318758_EU
 ov00_02318758_EU:

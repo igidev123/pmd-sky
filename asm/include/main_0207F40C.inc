@@ -1,0 +1,9 @@
+#pragma once
+.public _022BB5EC
+.public EnableIrqFlag
+.public FileInit
+.public SetIrqFlag
+.public sub_02079888
+.public sub_0207EBA0
+.public sub_0207EBE4
+.public sub_0207EDB4

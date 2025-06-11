@@ -4,6 +4,7 @@
 .public _s32_div_f
 .public _u32_div_f
 .public _ull_mod
+.public AllocateTemp1024ByteBufferFromPool
 .public ArrayCopy32
 .public BAG_ITEMS_PTR_MIRROR
 .public CardBackupError
@@ -31,6 +32,7 @@
 .public CreateTextBox
 .public Debug_Print0
 .public DeleteWanTableEntryVeneer
+.public DrawChar
 .public DrawTextInWindow
 .public EnableIrqFlag
 .public FemaleToMaleForm
@@ -82,6 +84,7 @@
 .public IsControlsChartActive
 .public IsDialogueBoxActive
 .public IsItemInTimeDarkness
+.public IsMonsterIllegalForMissions
 .public IsMovesetValid
 .public IsParentMenuActive
 .public IsSimpleMenuActive
@@ -279,10 +282,8 @@
 .public sub_02025404
 .public sub_0202544C
 .public sub_02025480
-.public sub_02025888
 .public sub_02025D50
 .public sub_02026268
-.public sub_0202676C
 .public sub_0202737C
 .public sub_02027B1C
 .public sub_020288FC
@@ -370,7 +371,6 @@
 .public sub_0205B77C
 .public sub_0205B80C
 .public sub_0205BBA4
-.public sub_02062B64
 .public sub_0207A2A4
 .public sub_020851AC
 .public UpdateWindow

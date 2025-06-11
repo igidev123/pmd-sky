@@ -38,7 +38,7 @@ ov29_023201D0: ; 0x023201D0
 	strh r0, [sp]
 	ldrh r3, [sl, #6]
 	ldrsh r6, [r1, r2]
-	ldr r0, _02320334 ; =ov29_0235171E
+	ldr r0, _02320334 ; =DIRECTIONS_XY + 2
 	ldrsh r1, [sp]
 	ldrsh r7, [r0, r2]
 	strh r3, [sp, #2]
@@ -89,7 +89,7 @@ _023202C4:
 	mov r0, sl
 	mov r1, r6
 	mov r2, r7
-	bl ov29_022E1A90
+	bl IncrementEntityPixelPosXY
 	mov r0, sl
 	bl ShouldDisplayEntityWrapper
 	cmp r0, #0
@@ -117,7 +117,7 @@ _02320328:
 	ldmia sp!, {r3, r4, r5, r6, r7, r8, sb, sl, pc}
 	.align 2, 0
 _02320330: .word DIRECTIONS_XY
-_02320334: .word ov29_0235171E
+_02320334: .word DIRECTIONS_XY + 2
 _02320338: .word 0x00000212
 	arm_func_end ov29_023201D0
 

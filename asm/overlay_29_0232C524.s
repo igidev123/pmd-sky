@@ -600,7 +600,7 @@ _0232CBFC:
 	mov r1, #0
 	strh r2, [sp, #8]
 	strh r6, [sp, #0xa]
-	bl ov29_022EDE7C
+	bl TryRemoveTrap
 	mov r7, #1
 _0232CC58:
 	add r6, r6, #1
@@ -683,7 +683,7 @@ _0232CD10:
 	mov r1, r8
 	mov r2, fp
 	mov r3, #0
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #0
 	bne _0232CD5C
 	mov r0, sl
@@ -905,7 +905,7 @@ _0232CFB8:
 	ldrsh r3, [r6, #4]
 	mov r1, r1, lsl #2
 	ldrsh r2, [r0, r1]
-	ldr r1, _0232D0E8 ; =ov29_0235171E
+	ldr r1, _0232D0E8 ; =DIRECTIONS_XY + 2
 	add r0, sp, #0
 	add r2, r3, r2
 	strh r2, [sp]
@@ -946,7 +946,7 @@ _0232D038:
 	cmp r4, #1
 	ble _0232D034
 	mov r4, #1
-	bl ov29_02304B64
+	bl DetermineAllMonsterShadow
 _0232D06C:
 	mov r8, #0
 	mov r5, r8
@@ -985,12 +985,12 @@ _0232D0D0:
 #ifdef JAPAN
 _0232D0E0: .word 0x00000C4D
 _0232D0E4: .word DIRECTIONS_XY
-_0232D0E8: .word ov29_0235171E
+_0232D0E8: .word DIRECTIONS_XY + 2
 _0232D0EC: .word 0x00000C4C
 #else
 _0232D0E0: .word 0x00000F0B
 _0232D0E4: .word DIRECTIONS_XY
-_0232D0E8: .word ov29_0235171E
+_0232D0E8: .word DIRECTIONS_XY + 2
 _0232D0EC: .word 0x00000F0A
 #endif
 	arm_func_end DoMoveFillIn
@@ -1000,7 +1000,7 @@ DoMoveTrapper: ; 0x0232D0F0
 	stmdb sp!, {r3, r4, r5, lr}
 	mov r5, r0
 	mov r4, r1
-	bl ov29_022ED868
+	bl AreLateGameTrapsEnabledWrapper
 	cmp r0, #0
 	bne _0232D11C
 #ifdef JAPAN
@@ -1718,7 +1718,7 @@ DoMoveStealthRock: ; 0x0232D90C
 	cmp r0, #0
 	movne r5, #2
 	moveq r5, #1
-	bl ov29_022ED868
+	bl AreLateGameTrapsEnabledWrapper
 	cmp r0, #0
 	beq _0232D95C
 	mov r2, r5
@@ -2018,7 +2018,7 @@ DoMoveToxicSpikes: ; 0x0232DC64
 	cmp r0, #0
 	movne r5, #2
 	moveq r5, #1
-	bl ov29_022ED868
+	bl AreLateGameTrapsEnabledWrapper
 	cmp r0, #0
 	beq _0232DCB4
 	mov r2, r5

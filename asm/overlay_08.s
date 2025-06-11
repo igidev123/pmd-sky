@@ -497,7 +497,7 @@ _0233CF8C:
 	cmp r6, #3
 	blt _0233CF8C
 	add r0, sp, #0
-	bl sub_0207BA08
+	bl GetDsFirmwareUserSettings
 	ldr r0, _0233D0E0 ; =ov08_0233EC28
 	ldrb r1, [sp, #1]
 	ldr r4, [r0, #4]
@@ -685,9 +685,9 @@ _0233D244:
 	cmp r4, #3
 	moveq r0, #0
 	beq _0233D3F8
-	bl sub_02025888
+	bl AllocateTemp1024ByteBufferFromPool
 	mov r6, r0
-	bl sub_02025888
+	bl AllocateTemp1024ByteBufferFromPool
 	ldr r1, _0233D400 ; =ov08_0233EC28
 	mov r5, r0
 	ldr r1, [r1, #4]
@@ -2805,6 +2805,7 @@ _0233E8A4:
 	arm_func_end ov08_0233E874
 	; 0x0233E8AC
 
+	.rodata
 #ifdef EUROPE
 	.global _0233F038_EU
 _0233F038_EU:

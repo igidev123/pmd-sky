@@ -12,6 +12,7 @@
 .public EntityIsValid__0231F570
 .public GetDirectionTowardsPosition
 .public GetTile
+.public GetTreatmentBetweenMonsters
 .public HasDropeyeStatus
 .public InitMove
 .public LogMessageByIdWithPopupCheckUserTarget
@@ -21,11 +22,9 @@
 .public ov29_022EA370
 .public ov29_022EACCC
 .public ov29_022FF764
-.public ov29_0230175C
 .public ov29_02304A48
 .public ov29_0232033C
 .public ov29_02321238
-.public ov29_0235171E
 .public ShouldDisplayEntityWrapper
 .public sub_020018D0
 .public SubstitutePlaceholderStringTags

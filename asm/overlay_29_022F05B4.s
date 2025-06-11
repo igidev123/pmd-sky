@@ -779,7 +779,7 @@ SetLeaderAction: ; 0x022F0EDC
 	bl TryPointCameraToMonster
 #ifndef JAPAN
 	bl GetLeader
-	bl ov29_022FB538
+	bl SetDecoyAiTracker
 #endif
 	bl GetLeader
 	bl ov29_022FF3F4
@@ -2376,7 +2376,7 @@ _022F25D8:
 	bne _022F2748
 	ldr r0, [sp, #0x14]
 	mov r1, #0
-	bl ov29_0232461C
+	bl IsChargingAnyTwoTurnMove
 	cmp r0, #0
 	movne r0, #0
 	bne _022F2748
@@ -3109,7 +3109,7 @@ ShouldLeaderKeepRunning: ; 0x022F308C
 	ldrb r1, [r5, #0x78b]
 	ldr r3, _022F35D8 ; =DIRECTIONS_XY
 	mov r5, r7, lsl #2
-	ldr r2, _022F35DC ; =ov29_0235171E
+	ldr r2, _022F35DC ; =DIRECTIONS_XY + 2
 	ldrsh r6, [r3, r5]
 	mov r8, r0
 	cmp r1, #0
@@ -3187,7 +3187,7 @@ _022F31C4:
 	mov r5, r1, lsr #0x1b
 	mov fp, r0, lsr #0x1b
 	ldrsh r1, [r6, r5]
-	ldr r8, _022F35DC ; =ov29_0235171E
+	ldr r8, _022F35DC ; =DIRECTIONS_XY + 2
 	mov r3, r2, lsr #0x1b
 	add r1, sl, r1
 	ldrsh r2, [r6, r3]
@@ -3462,7 +3462,7 @@ _022F35CC:
 	.align 2, 0
 _022F35D4: .word DUNGEON_PTR
 _022F35D8: .word DIRECTIONS_XY
-_022F35DC: .word ov29_0235171E
+_022F35DC: .word DIRECTIONS_XY + 2
 	arm_func_end ShouldLeaderKeepRunning
 
 	arm_func_start ov29_022F35E0
@@ -3648,7 +3648,7 @@ _022F3850:
 	mov r0, r7
 	mov r1, r5
 	mov r3, r2
-	bl ov29_0230175C
+	bl GetTreatmentBetweenMonsters
 	cmp r0, #1
 	movne r0, r6
 	moveq r0, #0
@@ -3811,9 +3811,9 @@ _022F3A6C:
 	bl ov29_022E8104
 	bl ov29_022E81F8
 	mov r0, fp
-	bl ov29_022E3DD8
+	bl PlayQuestionMarkEffect
 	bl GetLeader
-	bl ov29_022E3E24
+	bl PlayExclamationPointEffect__022E47D4
 	mov r0, #0
 	mov r1, r6
 	mov r2, r0
@@ -4429,8 +4429,8 @@ ov29_022F426C: ; 0x022F426C
 _022F42D4: .word DUNGEON_PTR
 	arm_func_end ov29_022F426C
 
-	arm_func_start ov29_022F42D8
-ov29_022F42D8: ; 0x022F42D8
+	arm_func_start GetPlayerGender
+GetPlayerGender: ; 0x022F42D8
 	stmdb sp!, {r3, lr}
 	bl GetHero
 	cmp r0, #0
@@ -4439,7 +4439,7 @@ ov29_022F42D8: ; 0x022F42D8
 	ldrsh r0, [r0, #4]
 	bl GetMonsterGenderVeneer
 	ldmia sp!, {r3, pc}
-	arm_func_end ov29_022F42D8
+	arm_func_end GetPlayerGender
 
 	arm_func_start ov29_022F42F8
 ov29_022F42F8: ; 0x022F42F8

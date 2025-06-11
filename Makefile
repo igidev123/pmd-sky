@@ -69,6 +69,10 @@ us: ; @$(MAKE) GAME_LANGUAGE=NORTH_AMERICA
 eu: ; @$(MAKE) GAME_LANGUAGE=EUROPE
 jp: ; @$(MAKE) GAME_LANGUAGE=JAPAN
 
+us-nonmatching: ; @$(MAKE) GAME_LANGUAGE=NORTH_AMERICA NONMATCHING=TRUE
+eu-nonmatching: ; @$(MAKE) GAME_LANGUAGE=EUROPE NONMATCHING=TRUE
+jp-nonmatching: ; @$(MAKE) GAME_LANGUAGE=JAPAN NONMATCHING=TRUE
+
 compare: @$(MAKE) COMPARE=1
 
 install_toolchain:
@@ -78,7 +82,7 @@ install_toolchain:
 	wget https://github.com/pret/pmd-sky/raw/workflows/assets/NitroSDK-4_2-071210-jp.7z -O toolchain_tmp/NitroSDK-4_2-071210-jp.7z
 	unzip -o toolchain_tmp/mwccarm.zip -d tools
 	7z x toolchain_tmp/NitroSDK-4_2-071210-jp.7z -otoolchain_tmp/nitro_sdk -y
-	mv toolchain_tmp/nitro_sdk/tools/bin/* tools/bin
+	mv toolchain_tmp/nitro_sdk/tools/bin tools/
 	mv toolchain_tmp/nitro_sdk/include/nitro/specfiles/ARM7-TS.lcf.template sub/
 	mv toolchain_tmp/nitro_sdk/include/nitro/specfiles/ARM9-TS.lcf.template .
 	mv toolchain_tmp/nitro_sdk/include/nitro/specfiles/mwldarm.response.template .
