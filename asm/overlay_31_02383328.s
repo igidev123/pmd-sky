@@ -1,26 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_023832F0.inc"
+	.include "overlay_31_02383328.inc"
 
 	.text
-
-	arm_func_start ov31_023832F0
-ov31_023832F0: ; 0x023832F0
-	stmdb sp!, {r3, lr}
-	ldr r0, _02383324 ; =ov31_0238A2A0
-	ldr r0, [r0, #4]
-	cmp r0, #0
-	ldmeqia sp!, {r3, pc}
-	bl ov31_0238328C
-	ldr r0, _02383324 ; =ov31_0238A2A0
-	ldr r0, [r0, #4]
-	bl MemFree
-	ldr r0, _02383324 ; =ov31_0238A2A0
-	mov r1, #0
-	str r1, [r0, #4]
-	ldmia sp!, {r3, pc}
-	.align 2, 0
-_02383324: .word ov31_0238A2A0
-	arm_func_end ov31_023832F0
 
 	arm_func_start ov31_02383328
 ov31_02383328: ; 0x02383328

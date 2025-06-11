@@ -216,7 +216,7 @@
 .public ov29_0238280C
 .public ov31_02382B54
 .public ov31_02382DAC
-.public ov31_0238328C
+.public ov31_023832F0
 .public ov31_02389F5C
 .public ov31_0238A044
 .public ov31_0238A04C
@@ -239,7 +239,6 @@
 .public ov31_0238A154
 .public ov31_0238A228
 .public ov31_0238A23C
-.public ov31_0238A2A0
 .public ov31_0238A2A8
 .public strcpy
 .public sub_02001808
