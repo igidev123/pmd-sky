@@ -1,38 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_0238328C.inc"
+	.include "overlay_31_023832F0.inc"
 
 	.text
-
-	arm_func_start ov31_0238328C
-ov31_0238328C: ; 0x0238328C
-	stmdb sp!, {r3, lr}
-	ldr r0, _023832EC ; =ov31_0238A2A0
-	mvn r1, #1
-	ldr r0, [r0, #4]
-	ldrsb r0, [r0]
-	cmp r0, r1
-	beq _023832BC
-	bl CloseAdvancedTextBox
-	ldr r0, _023832EC ; =ov31_0238A2A0
-	mvn r1, #1
-	ldr r0, [r0, #4]
-	strb r1, [r0]
-_023832BC:
-	ldr r0, _023832EC ; =ov31_0238A2A0
-	mvn r1, #1
-	ldr r0, [r0, #4]
-	ldrsb r0, [r0, #1]
-	cmp r0, r1
-	ldmeqia sp!, {r3, pc}
-	bl CloseParentMenu
-	ldr r0, _023832EC ; =ov31_0238A2A0
-	mvn r1, #1
-	ldr r0, [r0, #4]
-	strb r1, [r0, #1]
-	ldmia sp!, {r3, pc}
-	.align 2, 0
-_023832EC: .word ov31_0238A2A0
-	arm_func_end ov31_0238328C
 
 	arm_func_start ov31_023832F0
 ov31_023832F0: ; 0x023832F0
