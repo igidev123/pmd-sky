@@ -14,7 +14,7 @@ extern void CloseParentMenu(s8);
 extern void MemFree(void*);
 
 extern u8 sub_0204AEA0(void(*)(void));
-extern void ov29_02E8708(void);
+extern void ov29_022E8708(void);
 
 void ov31_02383248(struct Window* window)
 {
@@ -49,7 +49,7 @@ void ov31_023832F0(void)
 void ov31_02383328(void (*f)(void))
 {
     if (sub_0204AEA0(f) != ov31_0238A2A8) {
-        ov29_02E8708();
+        ov29_022E8708();
         OVERLAY31_UNKNOWN_POINTER__NA_238A268[0] = 1;
     }
 }
