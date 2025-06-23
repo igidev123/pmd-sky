@@ -81,6 +81,10 @@ void CloseScrollBox(struct Window*);
 
 u32 PositionHasItem(struct position*);
 
+u32 ov10_022BCD10(s8);
+s32 sub_020282F4(s8);
+void CloseInventoryMenu(s8);
+
 extern struct dungeon* DUNGEON_PTR[];
 
 extern struct window_params DUNGEON_WINDOW_PARAMS_8;
@@ -170,4 +174,22 @@ u8 ov31_0238372C(struct position* x)
         return 1;
     }
     return 0;
+}
+
+void ov31_02383768(s8* arg1)
+{
+    s32 x;
+
+    if (arg1[0] == -2) {
+        return;
+    }
+    
+    if (ov10_022BCD10(arg1[0])) {
+        do {
+            AdvanceFrame(0x62);
+            x = sub_020282F4(arg1[0]);
+        } while (-5 != x && -4 != x);
+    }
+    CloseInventoryMenu(arg1[0]);
+    arg1[0] = -2;
 }

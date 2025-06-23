@@ -16,7 +16,6 @@
 .public CloseAdvancedTextBox
 .public CloseAdvancedTextBox2
 .public CloseDialogueBox
-.public CloseInventoryMenu
 .public CloseParentMenu
 .public CloseScrollBox
 .public CloseTextBox
@@ -151,7 +150,6 @@
 .public ov10_022BCC60
 .public ov10_022BCC7C
 .public ov10_022BCCB0
-.public ov10_022BCD10
 .public ov10_022BCDA8
 .public ov10_022BCDBC
 .public ov10_022BCDF4
@@ -212,6 +210,7 @@
 .public ov31_02383478
 .public ov31_02383658
 .public ov31_0238372C
+.public ov31_02383768
 .public ov31_02389F5C
 .public ov31_0238A044
 .public ov31_0238A04C
@@ -243,7 +242,6 @@
 .public sub_02027B1C
 .public sub_0202810C
 .public sub_0202812C
-.public sub_020282F4
 .public sub_02028354
 .public sub_0202A98C
 .public sub_0202AB80
