@@ -10,5 +10,6 @@ u8 ov31_0238372C(struct position* x);
 void ov31_02383768(s8* arg1);
 void ov31_023837C8(void);
 void ov31_02383854(struct Window* w);
+void ov31_02383880(u8* arg1);
 
 #endif //PMDSKY_OVERLAY_31_02383478_H

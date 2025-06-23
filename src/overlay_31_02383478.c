@@ -222,3 +222,18 @@ void ov31_02383854(struct Window* w)
 {
     DrawTextInWindow(w, 2, 2, StringFromId(0x08e6));
 }
+
+void ov31_02383880(u8* arg1)
+{
+    u8 count, test;
+    arg1[0] = 0;
+    count = arg1[0] + 1;
+    for (s32 i=0; i < MAX_TEAM_MEMBERS; i++) {
+        test = ov31_02383658(DUNGEON_PTR[0]->party_members[i]);
+        if (!test) {
+            arg1[i+1] = 0;
+        } else {
+            arg1[i+1] = count++;
+        }
+    }
+}

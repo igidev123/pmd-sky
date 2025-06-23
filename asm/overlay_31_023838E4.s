@@ -1,42 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_02383880.inc"
+	.include "overlay_31_023838E4.inc"
 
 	.text
-
-	arm_func_start ov31_02383880
-ov31_02383880: ; 0x02383880
-	stmdb sp!, {r4, r5, r6, r7, r8, lr}
-	mov r5, #0
-	mov r7, r0
-	add r0, r5, #1
-	ldr r8, _023838E0 ; =DUNGEON_PTR
-	strb r5, [r7]
-	and r6, r0, #0xff
-	mov r4, r5
-_023838A0:
-	ldr r0, [r8]
-	add r0, r0, r5, lsl #2
-	add r0, r0, #0x12000
-#ifdef JAPAN
-	ldr r0, [r0, #0xa84]
-#else
-	ldr r0, [r0, #0xb28]
-#endif
-	bl ov31_02383658
-	cmp r0, #0
-	addeq r0, r7, r5
-	streqb r4, [r0, #1]
-	addne r0, r7, r5
-	addne r1, r6, #1
-	strneb r6, [r0, #1]
-	add r5, r5, #1
-	andne r6, r1, #0xff
-	cmp r5, #4
-	blt _023838A0
-	ldmia sp!, {r4, r5, r6, r7, r8, pc}
-	.align 2, 0
-_023838E0: .word DUNGEON_PTR
-	arm_func_end ov31_02383880
 
 	arm_func_start ov31_023838E4
 ov31_023838E4: ; 0x023838E4
