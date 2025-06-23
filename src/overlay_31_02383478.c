@@ -1,7 +1,12 @@
 #include "overlay_31_02383478.h"
 
 struct loc_struct {
-    u8 PAD_0x0000[4508];
+    u8 PAD_0x0[0x1192];
+    u8 field_0x1192;
+    u8 field_0x1193;
+    s8 field_0x1194;
+    s8 field_0x1195;
+    u8 PAD_0x1196[6];
     s16* field_0x119C;
     u8 PAD_0x11A0[17];
     u8 field_0x11b1;
@@ -64,26 +69,29 @@ extern u8 ov31_02389F5C[];
 
 extern struct tile* GetTile(s32 x, s32 y);
 extern struct item* GetItemInfo(struct entity*);
-void sub_0200D310(u8*, struct item*, u32*, u32, u32);
-void strcpy(u8*, u8*);
-u8 ov31_02383658(struct entity*);
-void sub_0200D894(struct item*);
-void ov10_022BD394(u8*, s32, u32, u32);
+extern void sub_0200D310(u8*, struct item*, u32*, u32, u32);
+extern void strcpy(u8*, u8*);
+extern void sub_0200D894(struct item*);
+extern void ov10_022BD394(u8*, s32, u32, u32);
 
-struct Window* CreateScrollBoxSingle(
+extern struct Window* CreateScrollBoxSingle(
     struct window_params* params, enum window_flags flags,
     struct window_extra_info* window_extra_info,
     u16 string_id1, struct preprocessor_args* args1,
     u16 string_id2, struct preprocessor_args* args2 );
-void AdvanceFrame(u32);
-u32 IsScrollBoxActive(struct Window*);
-void CloseScrollBox(struct Window*);
+extern void AdvanceFrame(u32);
+extern u32 IsScrollBoxActive(struct Window*);
+extern void CloseScrollBox(struct Window*);
 
 u32 PositionHasItem(struct position*);
 
-u32 ov10_022BCD10(s8);
-s32 sub_020282F4(s8);
-void CloseInventoryMenu(s8);
+extern u32 ov10_022BCD10(s8);
+extern s32 sub_020282F4(s8);
+extern void CloseInventoryMenu(s8);
+
+extern void ov29_0234E988(u8*);
+extern void CloseTextBox2(void);
+extern void MemFree(void*);
 
 extern struct dungeon* DUNGEON_PTR[];
 
@@ -192,4 +200,16 @@ void ov31_02383768(s8* arg1)
     }
     CloseInventoryMenu(arg1[0]);
     arg1[0] = -2;
+}
+
+void ov31_023837C8(void)
+{
+    ov29_0234E988(&(OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1192));
+    if ((OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1194) != -2)
+        CloseTextBox2();
+    if ((OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1195) != -2)
+        CloseTextBox2();
+    ov31_02383768(&(OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1193));
+    MemFree(OVERLAY31_UNKNOWN_POINTER__NA_238A26C);
+    OVERLAY31_UNKNOWN_POINTER__NA_238A26C = NULL;
 }

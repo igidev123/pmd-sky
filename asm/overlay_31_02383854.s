@@ -1,49 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_023837C8.inc"
+	.include "overlay_31_02383854.inc"
 
 	.text
-
-	arm_func_start ov31_023837C8
-ov31_023837C8: ; 0x023837C8
-	stmdb sp!, {r3, lr}
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	ldr r0, [r0]
-	add r0, r0, #0x92
-	add r0, r0, #0x1100
-	bl ov29_0234E988
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	mvn r1, #1
-	ldr r0, [r0]
-	add r0, r0, #0x1100
-	ldrsb r0, [r0, #0x94]
-	cmp r0, r1
-	beq _02383800
-	bl CloseTextBox2
-_02383800:
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	mvn r1, #1
-	ldr r0, [r0]
-	add r0, r0, #0x1100
-	ldrsb r0, [r0, #0x95]
-	cmp r0, r1
-	beq _02383820
-	bl CloseTextBox2
-_02383820:
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	ldr r0, [r0]
-	add r0, r0, #0x93
-	add r0, r0, #0x1100
-	bl ov31_02383768
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	ldr r0, [r0]
-	bl MemFree
-	ldr r0, _02383850 ; =OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	mov r1, #0
-	str r1, [r0]
-	ldmia sp!, {r3, pc}
-	.align 2, 0
-_02383850: .word OVERLAY31_UNKNOWN_POINTER__NA_238A26C
-	arm_func_end ov31_023837C8
 
 ; https://decomp.me/scratch/VL6fa
 	arm_func_start ov31_02383854
