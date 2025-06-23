@@ -5,5 +5,6 @@
 
 u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3);
 u8 ov31_02383658(struct entity* arg0);
+void ov31_0238367C(void);
 
 #endif //PMDSKY_OVERLAY_31_02383478_H

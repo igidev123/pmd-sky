@@ -12,6 +12,50 @@ struct loc_struct {
     u8 field_0x1277;
 };
 
+
+extern struct entity* GetLeader(void);
+extern struct item* GetItemToUse(struct entity*, u32, u32);
+
+// Represents arguments that might be passed to the PreprocessString function
+struct preprocessor_args {
+    u32 flag_vals[4];  // 0x0: These are usually IDs with additional flags attached to them
+    u32 id_vals[5];    // 0x10
+    s32 number_vals[5]; // 0x24
+    u8* strings[5];       // 0x38
+    // 0x4C: An optional argument that is used to insert the name of a Pokémon
+    // When they're talking through a window. It requires its respective flag to be on
+    u32 speaker_id;
+};
+
+struct window_extra_info;
+struct window_params;
+
+enum window_flags {
+    FLAG_A_ACCEPT               = 0x1,
+    FLAG_B_CANCEL               = 0x2,
+    FLAG_ACCEPT_BUTTON          = 0x4,
+    FLAG_UP_DOWN_BUTTONS        = 0x8,
+    FLAG_SE_ON                  = 0x10,
+    FLAG_SET_CHOICE             = 0x20,
+    FLAG_DISABLE_OPTIONS        = 0x200,
+    FLAG_CUSTOM_HEIGHT          = 0x400,
+    FLAG_MENU_TITLE             = 0x800,
+    FLAG_MENU_LOWER_BAR         = 0x1000,
+    FLAG_LIST_BUTTON            = 0x2000,
+    FLAG_SEARCH_BUTTON          = 0x4000,
+    FLAG_FIRST_LAST_PAGE_BUTTON = 0x10000,
+    FLAG_UP_DOWN                = 0x20000,
+    FLAG_Y_OFFSET_END           = 0x100000,
+    FLAG_X_OFFSET_END           = 0x200000,
+    FLAG_PARTIAL_MENU           = 0x400000,
+    FLAG_NO_CURSOR              = 0x800000,
+    FLAG_NO_UP_DOWN             = 0x1000000,
+    FLAG_NO_LEFT_RIGHT          = 0x2000000,
+    FLAG_INVISIBLE_CURSOR       = 0x4000000,
+    FLAG_ONLY_LIST              = 0x8000000,
+    FLAG_NO_ACCEPT_BUTTON       = 0x10000000,
+};
+
 extern struct loc_struct* OVERLAY31_UNKNOWN_POINTER__NA_238A26C;
 extern struct bag_items* BAG_ITEMS_PTR_MIRROR;
 extern u32 OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0;
@@ -25,7 +69,19 @@ u8 ov31_02383658(struct entity*);
 void sub_0200D894(struct item*);
 void ov10_022BD394(u8*, s32, u32, u32);
 
+struct Window* CreateScrollBoxSingle(
+    struct window_params* params, enum window_flags flags,
+    struct window_extra_info* window_extra_info,
+    u16 string_id1, struct preprocessor_args* args1,
+    u16 string_id2, struct preprocessor_args* args2 );
+void AdvanceFrame(u32);
+u32 IsScrollBoxActive(struct Window*);
+void CloseScrollBox(struct Window*);
+
 extern struct dungeon* DUNGEON_PTR[];
+
+extern struct window_params DUNGEON_WINDOW_PARAMS_8;
+
 
 u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3)
 {
@@ -77,4 +133,29 @@ u8 ov31_02383658(struct entity* arg0)
         return 0;
     } 
     return 1;
+}
+
+void ov31_0238367C(void)
+{
+    struct preprocessor_args f_0xc;
+    struct item* item = GetItemToUse(GetLeader(), 0, 11);
+
+    f_0xc.id_vals[0] = item->id;
+    f_0xc.number_vals[0] = item->quantity;
+    f_0xc.id_vals[2] = item->quantity + 0xbc;
+    f_0xc.number_vals[2] = 0;
+
+    enum window_flags flags = (enum window_flags)( FLAG_MENU_LOWER_BAR |
+                                                   FLAG_SE_ON          |
+                                                   FLAG_B_CANCEL       |
+                                                   FLAG_A_ACCEPT );
+    struct Window* window = CreateScrollBoxSingle(&DUNGEON_WINDOW_PARAMS_8,
+                                                  flags, NULL,
+                                                  0x08e4, &f_0xc, 
+                                                  item->id + 0x29d1, &f_0xc);
+    do {
+        AdvanceFrame(0x16);
+    } while (IsScrollBoxActive(window));
+    CloseScrollBox(window);
+    AdvanceFrame(0x16);
 }
