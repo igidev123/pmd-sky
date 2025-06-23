@@ -208,7 +208,7 @@
 .public ov31_02382DAC
 .public ov31_023832F0
 .public ov31_02383478
-.public ov31_02383658
+.public EntityIsValid__02383658
 .public ov31_0238372C
 .public ov31_02383768
 .public ov31_023837C8

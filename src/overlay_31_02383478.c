@@ -132,7 +132,7 @@ u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3)
         if (GET_BIT(BAG_ITEMS_PTR_MIRROR->bag_items->bag_items[arg2].flags, 0) &&
             BAG_ITEMS_PTR_MIRROR->bag_items->bag_items[arg2].held_by) {
             u32 r1 = (BAG_ITEMS_PTR_MIRROR->bag_items->bag_items[arg2].held_by - 1);
-            if (ov31_02383658(DUNGEON_PTR[0]->party_members[r1]) == 0) {
+            if (EntityIsValid__02383658(DUNGEON_PTR[0]->party_members[r1]) == 0) {
                 sub_0200D894(&(BAG_ITEMS_PTR_MIRROR->bag_items->bag_items[arg2]));
             }
         }
@@ -142,15 +142,12 @@ u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3)
 
 }
 
-u8 ov31_02383658(struct entity* arg0)
+bool8 EntityIsValid__02383658(struct entity* entity)
 {
-    if (arg0 == NULL) {
+    if (entity == NULL) {
         return 0;
     }
-    if (arg0->type == 0) {
-        return 0;
-    } 
-    return 1;
+    return entity->type != ENTITY_NOTHING;
 }
 
 void ov31_0238367C(void)
@@ -229,7 +226,7 @@ void ov31_02383880(u8* arg1)
     arg1[0] = 0;
     count = arg1[0] + 1;
     for (s32 i=0; i < MAX_TEAM_MEMBERS; i++) {
-        test = ov31_02383658(DUNGEON_PTR[0]->party_members[i]);
+        test = EntityIsValid__02383658(DUNGEON_PTR[0]->party_members[i]);
         if (!test) {
             arg1[i+1] = 0;
         } else {
