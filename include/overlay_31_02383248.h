@@ -10,5 +10,6 @@ void ov31_0238328C(void);
 void ov31_023832F0(void);
 void ov31_02383328(void (*f)(void));
 u32 ov31_0238335C(void (*f)(void));
+void ov31_023833B4(void(*f)(void));
 
 #endif //PMDSKY_OVERLAY_31_02383248_H
