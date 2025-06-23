@@ -67,3 +67,14 @@ u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3)
     return arg1;
 
 }
+
+u8 ov31_02383658(u32* arg0)
+{
+    if (arg0 == NULL) {
+        return 0;
+    }
+    if (*arg0 == 0) {
+        return 0;
+    } 
+    return 1;
+}

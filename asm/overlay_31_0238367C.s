@@ -1,20 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_02383658.inc"
+	.include "overlay_31_0238367C.inc"
 
 	.text
-
-	arm_func_start ov31_02383658
-ov31_02383658: ; 0x02383658
-	cmp r0, #0
-	moveq r0, #0
-	bxeq lr
-	ldr r0, [r0]
-	cmp r0, #0
-	movne r0, #1
-	moveq r0, #0
-	and r0, r0, #0xff
-	bx lr
-	arm_func_end ov31_02383658
 
 	arm_func_start ov31_0238367C
 ov31_0238367C: ; 0x0238367C
