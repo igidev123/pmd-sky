@@ -93,6 +93,9 @@ extern void ov29_0234E988(u8*);
 extern void CloseTextBox2(void);
 extern void MemFree(void*);
 
+extern void DrawTextInWindow(struct Window*, u32, u32, u8*);
+extern u8* StringFromId(u32);
+
 extern struct dungeon* DUNGEON_PTR[];
 
 extern struct window_params DUNGEON_WINDOW_PARAMS_8;
@@ -202,6 +205,7 @@ void ov31_02383768(s8* arg1)
     arg1[0] = -2;
 }
 
+// Safely dealocates OVERLAY31_UNKNOWN_POINTER__NA_238A26C
 void ov31_023837C8(void)
 {
     ov29_0234E988(&(OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1192));
@@ -212,4 +216,9 @@ void ov31_023837C8(void)
     ov31_02383768(&(OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x1193));
     MemFree(OVERLAY31_UNKNOWN_POINTER__NA_238A26C);
     OVERLAY31_UNKNOWN_POINTER__NA_238A26C = NULL;
+}
+
+void ov31_02383854(struct Window* w)
+{
+    DrawTextInWindow(w, 2, 2, StringFromId(0x08e6));
 }

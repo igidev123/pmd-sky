@@ -212,6 +212,7 @@
 .public ov31_0238372C
 .public ov31_02383768
 .public ov31_023837C8
+.public ov31_02383854
 .public ov31_02389F5C
 .public ov31_0238A044
 .public ov31_0238A04C

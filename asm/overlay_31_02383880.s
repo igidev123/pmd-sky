@@ -1,28 +1,7 @@
 	.include "asm/macros.inc"
-	.include "overlay_31_02383854.inc"
+	.include "overlay_31_02383880.inc"
 
 	.text
-
-; https://decomp.me/scratch/VL6fa
-	arm_func_start ov31_02383854
-ov31_02383854: ; 0x02383854
-	stmdb sp!, {r4, lr}
-	mov r4, r0
-	ldr r0, _0238387C ; =0x000008E6
-	bl StringFromId
-	mov r1, #2
-	mov r3, r0
-	mov r0, r4
-	mov r2, r1
-	bl DrawTextInWindow
-	ldmia sp!, {r4, pc}
-	.align 2, 0
-#ifdef JAPAN
-_0238387C: .word 0x00001D3E
-#else
-_0238387C: .word 0x000008E6
-#endif
-	arm_func_end ov31_02383854
 
 	arm_func_start ov31_02383880
 ov31_02383880: ; 0x02383880
