@@ -21,7 +21,7 @@ extern struct tile* GetTile(s32 x, s32 y);
 extern struct item* GetItemInfo(struct entity*);
 void sub_0200D310(u8*, struct item*, u32*, u32, u32);
 void strcpy(u8*, u8*);
-u32 ov31_02383658(struct entity*);
+u8 ov31_02383658(struct entity*);
 void sub_0200D894(struct item*);
 void ov10_022BD394(u8*, s32, u32, u32);
 
@@ -68,12 +68,12 @@ u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3)
 
 }
 
-u8 ov31_02383658(u32* arg0)
+u8 ov31_02383658(struct entity* arg0)
 {
     if (arg0 == NULL) {
         return 0;
     }
-    if (*arg0 == 0) {
+    if (arg0->type == 0) {
         return 0;
     } 
     return 1;
