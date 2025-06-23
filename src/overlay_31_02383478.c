@@ -3,7 +3,8 @@
 struct loc_struct {
     u8 PAD_0x0000[4508];
     s16* field_0x119C;
-    u8 PAD_0x11A0[18];
+    u8 PAD_0x11A0[17];
+    u8 field_0x11b1;
     u8 field_0x11B2;
     u8 field_0x11B3;
     struct item* field_0x11B4;
@@ -77,6 +78,8 @@ struct Window* CreateScrollBoxSingle(
 void AdvanceFrame(u32);
 u32 IsScrollBoxActive(struct Window*);
 void CloseScrollBox(struct Window*);
+
+u32 PositionHasItem(struct position*);
 
 extern struct dungeon* DUNGEON_PTR[];
 
@@ -158,4 +161,13 @@ void ov31_0238367C(void)
     } while (IsScrollBoxActive(window));
     CloseScrollBox(window);
     AdvanceFrame(0x16);
+}
+
+u8 ov31_0238372C(struct position* x)
+{
+    if (OVERLAY31_UNKNOWN_POINTER__NA_238A26C->field_0x11b1 != 0 && 
+        PositionHasItem(&(x[1]))) {
+        return 1;
+    }
+    return 0;
 }
