@@ -45,4 +45,7 @@ static inline s32 Max(s32 a, s32 b)
     return a > b ? a : b;
 }
 
+// Extracts a single bit from a byte-sized bit field
+#define GET_BIT(BYTE, N) ((u8)(BYTE & (1 << N) ? 1 : 0))
+
 #endif //PMDSKY_UTIL_H

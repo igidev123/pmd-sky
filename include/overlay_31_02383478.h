@@ -1,0 +1,8 @@
+#ifndef PMDSKY_OVERLAY_31_02383478_H
+#define PMDSKY_OVERLAY_31_02383478_H
+
+#include "overlay_31_02382820.h"
+
+u8* ov31_02383478(u8* arg1, s32 arg2, u32 arg3);
+
+#endif //PMDSKY_OVERLAY_31_02383478_H
