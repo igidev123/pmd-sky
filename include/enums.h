@@ -2775,6 +2775,14 @@ enum trap_id {
     TRAP_BROKEN_PITFALL_TRAP = 32,
 };
 
+// Type of stairs
+enum stairs_type {
+    STAIRS_TYPE_NORMAL = 0,
+    STAIRS_TYPE_WARP_ZONE = 1,
+    STAIRS_TYPE_RESCUE_POINT = 2,
+    STAIRS_TYPE_HIDDEN = 3,
+};
+
 // The type of hidden stairs (i.e. where it leads), if present
 enum hidden_stairs_type {
     HIDDEN_STAIRS_NONE = 0,
