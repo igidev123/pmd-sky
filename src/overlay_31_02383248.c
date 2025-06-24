@@ -8,7 +8,7 @@ extern u8 OVERLAY31_UNKNOWN_POINTER__NA_238A268[];
 extern void DrawTextInWindow(struct Window*, u32, u32, u8*);
 extern u8* StringFromId(u32);
 
-extern void CloseAdvancedTextBox(s8);
+extern void CloseAdvancedTextBox(u32);
 extern void CloseParentMenu(s8);
 
 extern void MemFree(void*);

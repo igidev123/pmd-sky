@@ -23,7 +23,7 @@ struct stairs_menu {
     // 0x0: Seems to hold window IDs
     // 0x0 is the parent window?
     // 0x1 and 0x2 are text boxes?
-    u8 window_id[4];
+    s8 window_id[4];
     u32 f;
     struct entity* entity; // 0x8: Seems to always point to the leader?
     // 0xC: Used for switching in HandleStairsMenu.

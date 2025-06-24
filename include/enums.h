@@ -2781,6 +2781,7 @@ enum stairs_type {
     STAIRS_TYPE_WARP_ZONE = 1,
     STAIRS_TYPE_RESCUE_POINT = 2,
     STAIRS_TYPE_HIDDEN = 3,
+    STAIRS_TYPE_PADDING = 0xffffffff,
 };
 
 // The type of hidden stairs (i.e. where it leads), if present
