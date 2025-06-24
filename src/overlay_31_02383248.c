@@ -21,19 +21,19 @@ extern u32 ov29_022E87DC(void);
 void ov31_02383248(struct Window* window)
 {
     u8* a;
-    a = StringFromId(OVERLAY31_UNKNOWN_STRING_IDS[ov31_0238A2A0.st3->d * 2]);
+    a = StringFromId(OVERLAY31_UNKNOWN_STRING_IDS[ov31_0238A2A0.st3->stairs_type * 2]);
     DrawTextInWindow(window, 4, 20, a);
 }
 
 void ov31_0238328C(void)
 {
-    if (ov31_0238A2A0.st3->e[0] != -2) {
-        CloseAdvancedTextBox(ov31_0238A2A0.st3->e[0]);
-        ov31_0238A2A0.st3->e[0] = -2;
+    if (ov31_0238A2A0.st3->window_id[0] != -2) {
+        CloseAdvancedTextBox(ov31_0238A2A0.st3->window_id[0]);
+        ov31_0238A2A0.st3->window_id[0] = -2;
     }
-    if (ov31_0238A2A0.st3->e[1] != -2) {
-        CloseParentMenu(ov31_0238A2A0.st3->e[1]);
-        ov31_0238A2A0.st3->e[1] = -2;
+    if (ov31_0238A2A0.st3->window_id[1] != -2) {
+        CloseParentMenu(ov31_0238A2A0.st3->window_id[1]);
+        ov31_0238A2A0.st3->window_id[1] = -2;
     }
 }
 

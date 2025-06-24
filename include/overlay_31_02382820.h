@@ -3,6 +3,7 @@
 
 #include "main_020348E4.h"
 #include "util.h"
+#include "window.h"
 #include "preprocessString.h"
 #include "dungeon.h"
 
@@ -43,15 +44,6 @@ struct struct_2 {
     u8 PAD2[50];
 };
 
-struct struct_3 {
-    s8                e[4]; // 0x0
-    u32               f;    // 0x4
-    struct entity*    a;    // 0x8
-    u32               b;    // 0xC
-    u32               c;    // 0x10
-    u32               d;    // 0x14
-};
-
 struct struct_5 {
     u32 field_0x0;
     u32 field_0x4;
@@ -75,7 +67,7 @@ struct struct_6 {
 
 struct struct_4 {
     u8* str;
-    struct struct_3* st3;
+    struct stairs_menu* st3;
 };
 
 #define OV31_02382B54_CONST_1 (0x00000233)

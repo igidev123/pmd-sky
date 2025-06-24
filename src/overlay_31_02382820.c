@@ -272,33 +272,33 @@ void ov31_02382E18(struct entity* arg_1, u32 arg_2)
 
 void CreateStairsMenuState(struct entity* entity)
 {
-    struct struct_3* tmp1;
+    struct stairs_menu* tmp1;
     if (sub_020348E4(&OVERLAY31_UNKNOWN_STRUCT__NA_2389E30) == 0)
         return;
 
-    tmp1 = MemAlloc(sizeof(struct struct_3), 8);
+    tmp1 = MemAlloc(sizeof(struct stairs_menu), 8);
     ov31_0238A2A0.st3 = tmp1;
     ov31_0238A2A0.st3->f = 0;
-    ov31_0238A2A0.st3->a = entity;
-    ov31_0238A2A0.st3->b = 0;
-    ov31_0238A2A0.st3->c = 0;
+    ov31_0238A2A0.st3->entity = entity;
+    ov31_0238A2A0.st3->state = 0;
+    ov31_0238A2A0.st3->unk_info_menu_var = 0;
 
     u32 floor_type = GetFloorType();
-    u32 r4 = 0;
+    enum stairs_type r4 = STAIRS_TYPE_NORMAL;
     if (floor_type == 2) {
-        r4 = 2;
+        r4 = STAIRS_TYPE_RESCUE_POINT;
     } else if (floor_type == 1) {
-        r4 = 1;
+        r4 = STAIRS_TYPE_WARP_ZONE;
     } else if (PositionIsOnHiddenStairs(&(entity->pos))) {
-        r4 = 3;
+        r4 = STAIRS_TYPE_HIDDEN;
     }
 
-    ov31_0238A2A0.st3->d = r4;
+    ov31_0238A2A0.st3->stairs_type = r4;
 }
 
 void StairsSubheadingCallback(struct Window* window)
 {
-    u8* str = StringFromId(ov31_02389E22[ov31_0238A2A0.st3->d * 2]);
+    u8* str = StringFromId(ov31_02389E22[ov31_0238A2A0.st3->stairs_type * 2]);
 
     ov31_0238A2A0.str = str;
     DrawTextInWindow(window, 16, 18, str);
