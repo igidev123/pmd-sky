@@ -3,7 +3,7 @@
 
 	.text
 
-; https://decomp.me/scratch/D2RFJ
+; https://decomp.me/scratch/Kpswq
 	arm_func_start HandleStairsMenu
 HandleStairsMenu: ; 0x02382FBC
 	stmdb sp!, {r4, lr}
