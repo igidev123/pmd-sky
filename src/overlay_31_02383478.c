@@ -33,35 +33,6 @@ struct preprocessor_args {
     u32 speaker_id;
 };
 
-struct window_extra_info;
-struct window_params;
-
-enum window_flags {
-    FLAG_A_ACCEPT               = 0x1,
-    FLAG_B_CANCEL               = 0x2,
-    FLAG_ACCEPT_BUTTON          = 0x4,
-    FLAG_UP_DOWN_BUTTONS        = 0x8,
-    FLAG_SE_ON                  = 0x10,
-    FLAG_SET_CHOICE             = 0x20,
-    FLAG_DISABLE_OPTIONS        = 0x200,
-    FLAG_CUSTOM_HEIGHT          = 0x400,
-    FLAG_MENU_TITLE             = 0x800,
-    FLAG_MENU_LOWER_BAR         = 0x1000,
-    FLAG_LIST_BUTTON            = 0x2000,
-    FLAG_SEARCH_BUTTON          = 0x4000,
-    FLAG_FIRST_LAST_PAGE_BUTTON = 0x10000,
-    FLAG_UP_DOWN                = 0x20000,
-    FLAG_Y_OFFSET_END           = 0x100000,
-    FLAG_X_OFFSET_END           = 0x200000,
-    FLAG_PARTIAL_MENU           = 0x400000,
-    FLAG_NO_CURSOR              = 0x800000,
-    FLAG_NO_UP_DOWN             = 0x1000000,
-    FLAG_NO_LEFT_RIGHT          = 0x2000000,
-    FLAG_INVISIBLE_CURSOR       = 0x4000000,
-    FLAG_ONLY_LIST              = 0x8000000,
-    FLAG_NO_ACCEPT_BUTTON       = 0x10000000,
-};
-
 extern struct loc_struct* OVERLAY31_UNKNOWN_POINTER__NA_238A26C;
 extern struct bag_items* BAG_ITEMS_PTR_MIRROR;
 extern u32 OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0;
