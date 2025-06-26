@@ -7,6 +7,11 @@ struct struct_1 {
     u8 b[7]; // 0x8
 };
 
+struct struct_238A260 {
+    struct struct_1* field_0x0;
+    u32 field_0x4;
+};
+
 struct struct_02AFDB8 {
     u8 PAD1[16];
     u8 a;              // 0x10

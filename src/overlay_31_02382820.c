@@ -5,7 +5,7 @@ extern struct dungeon* DUNGEON_PTR[];
 
 extern const u8 DUNGEON_MENU_SWITCH_STR1[];// = "[dungeon:0]";
 
-extern struct struct_1* OVERLAY31_UNKNOWN_POINTER__NA_238A260[2];
+extern struct struct_238A260 OVERLAY31_UNKNOWN_POINTER__NA_238A260;
 extern u32 DUNGEON_WINDOW_PARAMS_1;
 extern u32 DUNGEON_WINDOW_PARAMS_2;
 extern struct struct_1 DUNGEON_WINDOW_PARAMS_3;
@@ -48,7 +48,7 @@ extern u32 ShouldMonsterRunAwayVariation(struct entity*, u32);
 extern void sub_0202AB94(s8, u32);
 extern void sub_0202B030(s8);
 extern void sub_0202F954(s8);
-extern struct struct_1* sub_0202ABB0(s8);
+extern u32 sub_0202ABB0(s8);
 
 extern void CloseTextBox(s8);
 extern void CloseParentMenu(s8);
@@ -68,9 +68,9 @@ void EntryOverlay31(void) {
         return;
     }
     r0 = (struct struct_1*)MemAlloc(16, 0x8);
-    OVERLAY31_UNKNOWN_POINTER__NA_238A260[0] = r0;
+    OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0 = r0;
     r0->a = 0;
-    OVERLAY31_UNKNOWN_POINTER__NA_238A260[1] = (struct struct_1*)0xa;
+    OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x4 = 0xa;
 }
 
 
@@ -163,35 +163,35 @@ u32 ov31_02382B54(void)
     struct window_extra_info sp;
     struct entity* leader;
 
-    switch (OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a) {
+    switch (OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a) {
         case 0:
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a++;
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a++;
             break;
 
         case 1:
             for (int i = 0; i<7; i++) {
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b[i] = 0;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b[i] = 0;
             }
             leader = GetLeader();
             if (ShouldMonsterRunAwayVariation(leader, 1)) {
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b[0] = 3;
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b[1] = 3;
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b[2] = 3;
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b[4] = 3;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b[0] = 3;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b[1] = 3;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b[2] = 3;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b[4] = 3;
             }
-            sp.option_states = OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->b;
+            sp.option_states = OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->b;
             sp.set_choice_id = Arm9LoadUnkFieldNa0x2029EC8(5, sp.option_states);
 
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0] = CreateParentMenuFromStringIds(&DUNGEON_WINDOW_PARAMS_1, OV31_02382B54_CONST_1, &sp, &DUNGEON_MAIN_MENU_ITEMS);
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0] = CreateParentMenuFromStringIds(&DUNGEON_WINDOW_PARAMS_1, OV31_02382B54_CONST_1, &sp, &DUNGEON_MAIN_MENU_ITEMS);
 
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[2] = CreateTextBox(&DUNGEON_WINDOW_PARAMS_4, DrawDungeonMenuStatusWindow);
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[1] = CreateTextBox(&DUNGEON_WINDOW_PARAMS_2, DungeonMenuSwitch);
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a++;
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[2] = CreateTextBox(&DUNGEON_WINDOW_PARAMS_4, DrawDungeonMenuStatusWindow);
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[1] = CreateTextBox(&DUNGEON_WINDOW_PARAMS_2, DungeonMenuSwitch);
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a++;
             break;
 
         case 2:
-            if (IsParentMenuActive(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0])) {
-                u8 tmp4 = sub_0202AB80(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0]);
+            if (IsParentMenuActive(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0])) {
+                u8 tmp4 = sub_0202AB80(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0]);
 
                 Arm9StoreUnkFieldNa0x2029ED8(5, tmp4);
 
@@ -204,26 +204,26 @@ u32 ov31_02382B54(void)
                 if (ShouldMonsterRunAwayVariation(leader, 1))
                     break;
 
-                sub_0202AB94(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0], 0);
+                sub_0202AB94(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0], 0);
 
-                sub_0202B030(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0]);
+                sub_0202B030(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0]);
 
-                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[1]);
+                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[1]);
 
-                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[2]);
+                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[2]);
 
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a++;
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a++;
             } else {
-                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[1]);
+                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[1]);
 
-                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[2]);
-                OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a++;
+                sub_0202F954(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[2]);
+                OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a++;
             }
             break;
 
         case 3:
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[1] = sub_0202ABB0(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0]);
-            OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->a++;
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x4 = sub_0202ABB0(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0]);
+            OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->a++;
             return 4;
             break;
     }
@@ -232,19 +232,19 @@ u32 ov31_02382B54(void)
 
 void ov31_02382DAC(void)
 {
-    if (OVERLAY31_UNKNOWN_POINTER__NA_238A260[0] == NULL)
+    if (OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0 == NULL)
         return;
 
-    CloseTextBox(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[1]);
-    CloseTextBox(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[2]);
-    CloseParentMenu(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]->f[0]);
-    MemFree(OVERLAY31_UNKNOWN_POINTER__NA_238A260[0]);
-    OVERLAY31_UNKNOWN_POINTER__NA_238A260[0] = NULL;
+    CloseTextBox(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[1]);
+    CloseTextBox(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[2]);
+    CloseParentMenu(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0->f[0]);
+    MemFree(OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0);
+    OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x0 = NULL;
 }
 
-struct struct_1* ov31_02382E08(void)
+u32 ov31_02382E08(void)
 {
-    return OVERLAY31_UNKNOWN_POINTER__NA_238A260[1];
+    return OVERLAY31_UNKNOWN_POINTER__NA_238A260.field_0x4;
 }
 
 void ov31_02382E18(struct entity* arg_1, u32 arg_2)

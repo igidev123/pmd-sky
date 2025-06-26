@@ -74,7 +74,7 @@ struct struct_4 {
 
 u32 ov31_02382B54(void);
 void ov31_02382DAC(void);
-struct struct_1* ov31_02382E08(void);
+u32 ov31_02382E08(void);
 void ov31_02382E18(struct entity* arg_1, u32 arg_2);
 // Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
 // Allocates a stairs_menu struct on the heap with information for HandleStairsMenu, which will be pointed to by STAIRS_MENU_PTR.
